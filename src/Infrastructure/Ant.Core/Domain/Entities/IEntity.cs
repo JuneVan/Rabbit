@@ -1,4 +1,4 @@
-﻿namespace Ant.Core.Domain.Entities
+﻿namespace Ant.Domain.Entities
 {
     public interface IEntity
     {

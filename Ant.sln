@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ant.Core", "src\Infrastruct
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ant.Data.EntityFrameworkCore", "src\Infrastructure\Ant.Data.EntityFrameworkCore\Ant.Data.EntityFrameworkCore.csproj", "{363D842F-24ED-41B0-87A5-ED369379E1F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ant.Catalog.Core", "src\Services\Catalog\Ant.Catalog.Core\Ant.Catalog.Core.csproj", "{C67658F4-E2E2-4294-B6A0-3A06FF79DA45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{363D842F-24ED-41B0-87A5-ED369379E1F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{363D842F-24ED-41B0-87A5-ED369379E1F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{363D842F-24ED-41B0-87A5-ED369379E1F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C67658F4-E2E2-4294-B6A0-3A06FF79DA45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C67658F4-E2E2-4294-B6A0-3A06FF79DA45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C67658F4-E2E2-4294-B6A0-3A06FF79DA45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C67658F4-E2E2-4294-B6A0-3A06FF79DA45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{CA1DA039-1370-4A57-9670-F4F07D521D9C} = {D7618E54-1394-48FB-9567-84201E1ACC0D}
 		{A354E19F-93A4-47C7-B0CC-9B6E9EEE421D} = {CA1DA039-1370-4A57-9670-F4F07D521D9C}
 		{363D842F-24ED-41B0-87A5-ED369379E1F1} = {CA1DA039-1370-4A57-9670-F4F07D521D9C}
+		{C67658F4-E2E2-4294-B6A0-3A06FF79DA45} = {00263BAE-D84E-4465-8F42-D9B9A8B47127}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6718F1A-8F97-4628-9AFE-6AD8CEF9127F}
