@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.13">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.8" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Infrastructure\Rabbit.Caching.Redis\Rabbit.Caching.Redis.csproj" />
+		<ProjectReference Include="..\..\..\Infrastructure\Rabbit.Data.EntityFrameworkCore\Rabbit.Data.EntityFrameworkCore.csproj" />
+		<ProjectReference Include="..\Rabbit.Catalog.Core\Rabbit.Catalog.Core.csproj" />
+	</ItemGroup>
+
+</Project>
