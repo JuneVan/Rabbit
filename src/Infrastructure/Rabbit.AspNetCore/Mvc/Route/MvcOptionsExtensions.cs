@@ -1,4 +1,4 @@
-﻿namespace Rabbit.AspNetCore.Mvc.Route
+﻿namespace Microsoft.AspNetCore.Mvc
 {
     public static class MvcOptionsExtensions
     {

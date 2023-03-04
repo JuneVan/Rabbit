@@ -1,13 +1,15 @@
-﻿namespace Rabbit.Events
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace Rabbit.Events
 {
     public class EntityChangeEventHelper : IEntityChangeEventHelper
     {
-        readonly IPublishEndpoint _publishEndpoint;
+        private readonly IPublishEndpoint _publishEndpoint;
         private readonly IThreadSignal _signal;
         private readonly ILogger _logger;
-        public EntityChangeEventHelper(IPublishEndpoint publishEndpoint, IThreadSignal signal, ILogger<EntityChangeEventHelper> logger)
+        public EntityChangeEventHelper(IServiceProvider serviceProvider, IThreadSignal signal, ILogger<EntityChangeEventHelper> logger)
         {
-            _publishEndpoint = publishEndpoint;
+            _publishEndpoint = serviceProvider.GetService<IPublishEndpoint>();
             _signal = signal;
             _logger = logger;
         }
@@ -33,7 +35,7 @@
             Type entityType = entity.GetType();
             Type eventType = genericEventType.MakeGenericType(entityType);
             var @event = Activator.CreateInstance(eventType, new[] { entity });
-            if (@event != null)
+            if (@event != null && _publishEndpoint != null)
                 await _publishEndpoint.Publish(@event, _signal.CancellationToken);
         }
 

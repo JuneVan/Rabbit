@@ -1,11 +1,13 @@
 ﻿global using FluentValidation;
 global using MediatR;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Diagnostics.HealthChecks;
 global using Microsoft.IdentityModel.Tokens;
 global using Microsoft.OpenApi.Models;
 global using Rabbit.AspNetCore.JwtTokens;
-global using Rabbit.AspNetCore.Mvc.Route;
 global using Rabbit.Catalog.Infrastructure.EntityFrameworkCore;
 global using Rabbit.Catalog.WebAPI;
+global using Rabbit.Domain;
 global using Rabbit.Extensions;

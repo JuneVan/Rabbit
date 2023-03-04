@@ -22,6 +22,7 @@ global using Rabbit.AspNetCore.Mvc.Extensions;
 global using Rabbit.AspNetCore.Mvc.Helpers;
 global using Rabbit.AspNetCore.Mvc.Models;
 global using Rabbit.AspNetCore.Mvc.ResultWrapper;
+global using Rabbit.AspNetCore.Mvc.Route;
 global using Rabbit.AspNetCore.Mvc.Validation;
 global using Rabbit.AspNetCore.Threading;
 global using Rabbit.Authorization;

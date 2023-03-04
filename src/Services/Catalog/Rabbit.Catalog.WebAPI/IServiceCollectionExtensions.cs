@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Extensions.DependencyInjection
+﻿using MassTransit;
+
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class IServiceCollectionExtensions
     {
@@ -56,7 +58,7 @@
                         }
                     });
 
-                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Mjb.ErpV2.Identity", Version = "v1", Description = "身份认证系统 WebAPI" });
+                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Rabbit.Identity", Version = "v1", Description = "身份认证系统 WebAPI" });
                  options.CustomSchemaIds(type => type.FullName);
                  // 加载注释文档
                  foreach (var xmlFilePath in Directory.GetFiles(AppContext.BaseDirectory, "*.xml"))
@@ -97,7 +99,15 @@
         {
             services.AddMediatR(typeof(Program).Assembly);
         }
-
+        //private static void AddEventBus(IServiceCollection services)
+        //{
+        //    services.AddMassTransit(x =>
+        //    {
+        //        x.UsingRabbitMq((context, cfg) => { 
+        //            cfg.Host("localhost", "/", h => { h.Username("guest"); h.Password("guest"); });
+        //            cfg.ConfigureEndpoints(context); });
+        //    });
+        //}
         private static void AddJWTAuthentication(IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<JwtOptions>(configuration.GetSection("JWTAuthentication"));
@@ -128,7 +138,7 @@
             services.AddCore();
             services.AddEntityFrameworkCore<CatalogDbContext>(configure =>
             {
-                //configure.UseNpgsql(configuration.GetConnectionString("PostgreSqlDb"));
+                configure.UseNpgsql(configuration.GetConnectionString("PostgreSqlDb"));
             });
             services.AddAspNetCore(configure =>
             {

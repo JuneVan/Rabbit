@@ -6,7 +6,7 @@
         {
             services.AddScoped<IIdentifier, NullIdentifier>();
             services.AddScoped<IThreadSignal, NullThreadSignal>();
-            services.AddScoped<IEntityChangeEventHelper, EntityChangeEventHelper>();
+            services.AddScoped<IEntityChangeEventHelper, EntityChangeEventHelper>(); 
             services.AddScoped<IPermissionChecker, PermissionChecker>();
             services.AddScoped<IPermissionStore, NullPermissionStore>();
             return services;

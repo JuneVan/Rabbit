@@ -1,6 +1,9 @@
 ﻿namespace Rabbit.Catalog.AggregateModels.CategoryAggregate
 {
-    public class Category : FullAuditedEntity
+    /// <summary>
+    /// 分类
+    /// </summary>
+    public class Category : FullAuditedAggregateRoot
     {
         private string _name;
         private int? _parentId;

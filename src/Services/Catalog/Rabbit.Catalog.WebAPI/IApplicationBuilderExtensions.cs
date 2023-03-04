@@ -22,7 +22,7 @@
             });
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint($"/{routePrefix}/swagger/v1/swagger.json", "Mjb.ErpV2.Identity");
+                c.SwaggerEndpoint($"/{routePrefix}/swagger/v1/swagger.json", "Rabbit.Identity");
                 c.RoutePrefix = routePrefix + "/swagger";
             });
         }

@@ -7,7 +7,7 @@
         {
 
         }
-
+        protected override string Schema =>InfrastructureDefaults.CatalogDbSchema;
         public DbSet<Category> Categories { get; set; }
     }
 }

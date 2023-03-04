@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Data.EntityFramework
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Catalog.Core", "src\Services\Catalog\Rabbit.Catalog.Core\Rabbit.Catalog.Core.csproj", "{C67658F4-E2E2-4294-B6A0-3A06FF79DA45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Catalog.Infrastructure", "src\Services\Catalog\Rabbit.Catalog.Infrastructure\Rabbit.Catalog.Infrastructure.csproj", "{721BEAA8-690F-42FB-A45B-5610034D9CE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Catalog.Infrastructure", "src\Services\Catalog\Rabbit.Catalog.Infrastructure\Rabbit.Catalog.Infrastructure.csproj", "{721BEAA8-690F-42FB-A45B-5610034D9CE1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit", "src\Infrastructure\Rabbit\Rabbit.csproj", "{A806687B-344C-47AF-8283-41970D6909F6}"
 EndProject
@@ -35,9 +35,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.AspNetCore", "src\In
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Ordering.WebAPI", "src\Services\Ordering\Rabbit.Ordering.WebAPI\Rabbit.Ordering.WebAPI.csproj", "{E0826BFE-7F91-488F-AF8B-A62672958F56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Caching.Redis", "src\Infrastructure\Rabbit.Caching.Redis\Rabbit.Caching.Redis.csproj", "{5FCAB10E-76AB-4091-A2DF-5F8D5BFB0912}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Caching.Redis", "src\Infrastructure\Rabbit.Caching.Redis\Rabbit.Caching.Redis.csproj", "{5FCAB10E-76AB-4091-A2DF-5F8D5BFB0912}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rabbit.Configuration.Nacos", "src\Infrastructure\Rabbit.Configuration.Nacos\Rabbit.Configuration.Nacos.csproj", "{B55EABA4-08F7-47C3-9EF3-A3981CD6C10C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Configuration.Nacos", "src\Infrastructure\Rabbit.Configuration.Nacos\Rabbit.Configuration.Nacos.csproj", "{B55EABA4-08F7-47C3-9EF3-A3981CD6C10C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Identity", "src\Services\Identity\Rabbit.Identity\Rabbit.Identity.csproj", "{DA64933B-2103-4DDC-8610-3F2FE8CF108D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Identity.Infrastructure", "src\Services\Identity\Rabbit.Identity.Infrastructure\Rabbit.Identity.Infrastructure.csproj", "{B8D51504-FA0B-4B59-8EDB-462B0C0894FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +93,14 @@ Global
 		{B55EABA4-08F7-47C3-9EF3-A3981CD6C10C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B55EABA4-08F7-47C3-9EF3-A3981CD6C10C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B55EABA4-08F7-47C3-9EF3-A3981CD6C10C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA64933B-2103-4DDC-8610-3F2FE8CF108D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA64933B-2103-4DDC-8610-3F2FE8CF108D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA64933B-2103-4DDC-8610-3F2FE8CF108D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA64933B-2103-4DDC-8610-3F2FE8CF108D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8D51504-FA0B-4B59-8EDB-462B0C0894FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8D51504-FA0B-4B59-8EDB-462B0C0894FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8D51504-FA0B-4B59-8EDB-462B0C0894FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8D51504-FA0B-4B59-8EDB-462B0C0894FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +123,8 @@ Global
 		{E0826BFE-7F91-488F-AF8B-A62672958F56} = {BDDAAAB4-E891-41D0-BFB1-D3E6591C8D7D}
 		{5FCAB10E-76AB-4091-A2DF-5F8D5BFB0912} = {CA1DA039-1370-4A57-9670-F4F07D521D9C}
 		{B55EABA4-08F7-47C3-9EF3-A3981CD6C10C} = {CA1DA039-1370-4A57-9670-F4F07D521D9C}
+		{DA64933B-2103-4DDC-8610-3F2FE8CF108D} = {6F9D642A-6712-40B2-B88C-953FA622DC0B}
+		{B8D51504-FA0B-4B59-8EDB-462B0C0894FA} = {6F9D642A-6712-40B2-B88C-953FA622DC0B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6718F1A-8F97-4628-9AFE-6AD8CEF9127F}

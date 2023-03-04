@@ -1,25 +1,17 @@
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
+
 var builder = WebApplication.CreateBuilder(args);
+ 
+var configuration = builder.Configuration;
+var routePrefix = configuration["Settings:RoutePrefix"];
 
-// Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddCatalog(configuration, routePrefix);
+
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
+app.UseCatalog(configuration, app.Environment, routePrefix);
 app.MapControllers();
-
-app.Run();
+app.MapHealthChecks($"{routePrefix}/health/base");
+app.Run("http://*:5000"); // ÈÝÆ÷Ä¬ÈÏÖ¸¶¨5000
