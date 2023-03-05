@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Mjb.ErpV2.Identity.WebAPI": {
+    "Rabbit.Identity.WebAPI.Application": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",

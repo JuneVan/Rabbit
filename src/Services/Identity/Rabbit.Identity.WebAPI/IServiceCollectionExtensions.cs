@@ -7,10 +7,10 @@
             AddWebApi(services, configuration, routePrefix);
             AddSwaggerGen(services);
             AddCORS(services, configuration);
-            AddValidation(services); 
+            AddValidation(services);
             AddHealthChecks(services);
             AddMediatR(services);
-            AddErpFramework(services, configuration);
+            AddServices(services, configuration);
             AddJWTAuthentication(services, configuration);
             return services;
         }
@@ -79,7 +79,7 @@
         private static void AddValidation(IServiceCollection services)
         {
             services.AddValidatorsFromAssembly(typeof(Program).Assembly);
-        } 
+        }
         // 添加健康检查
         private static void AddHealthChecks(IServiceCollection services)
         {
@@ -117,13 +117,14 @@
 
              });
         }
-        private static void AddErpFramework(IServiceCollection services, IConfiguration configuration)
+        private static void AddServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddCore();
             services.AddEntityFrameworkCore<IdentityDbContext>(configure =>
             {
                 configure.UseNpgsql(configuration.GetConnectionString("PostgreSqlDb"));
             });
+            services.AddScoped<IConnectionStringProvider, EfCoreConnectionStringProvider>();
             services.AddAspNetCore(configure =>
             {
                 configure.RequestUrl = configuration["Settings:Permission:RequestUrl"];

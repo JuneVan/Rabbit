@@ -1,15 +1,21 @@
-﻿namespace Rabbit.Identity.WebAPI.Controllers
+﻿using Rabbit.Identity.WebAPI.Application.Queries;
+
+namespace Rabbit.Identity.WebAPI.Controllers
 {
     /// <summary>
     /// 用户管理
     /// </summary> 
+    [Route("v1/[controller]/[action]")]
     [CheckPermission(StandardPermissions.Users)]
     public class UserController : IdentityControllerBase
     {
-        public UserController(IServiceProvider serviceProvider)
+        private readonly IUserQuerier _querier;
+        public UserController(IServiceProvider serviceProvider,
+            IUserQuerier querier)
 
             : base(serviceProvider)
         {
+            _querier = querier;
         }
         /// <summary>
         /// 创建用户
@@ -53,12 +59,12 @@
         /// <summary>
         /// 获取一条用户记录
         /// </summary>
-        /// <param name="query">查询参数</param>
+        /// <param name="id">用户id</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<UserDto> Get([FromQuery] GetUserByIdQuery query)
+        public async Task<UserModel> Get([FromQuery] int id)
         {
-            return await Mediator.Send(query);
+            return await _querier.GetUserByIdAsync(id);
         }
         /// <summary>
         /// 获取用户列表
@@ -66,9 +72,9 @@
         /// <param name="query"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<PagedResultDto<UserListDto>> GetAll([FromQuery] GetUsersQuery query)
+        public async Task<PagedResultDto<UserListModel>> GetAll([FromQuery] GetUsersQuery query)
         {
-            return await Mediator.Send(query);
+            return await _querier.GetUsersAsync(query);
         }
 
         /// <summary>
@@ -77,9 +83,9 @@
         /// <returns></returns>
         [HttpGet]
         [NoCheckPermission]
-        public async Task<List<ComboboxItemDto>> GetComboboxItems()
+        public async Task<IEnumerable<ComboboxItemDto>> GetItems()
         {
-            return await Mediator.Send(new GetUserItemsQuery());
+            return await _querier.GetUserItemsAsync();
         }
 
     }

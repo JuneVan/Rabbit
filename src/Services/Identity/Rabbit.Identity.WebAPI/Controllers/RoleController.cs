@@ -1,14 +1,19 @@
-﻿namespace Rabbit.Identity.WebAPI.Controllers
+﻿using Rabbit.Identity.WebAPI.Application.Queries;
+
+namespace Rabbit.Identity.WebAPI.Controllers
 {
     /// <summary>
     /// 角色管理
     /// </summary>
+    [Route("v1/[controller]/[action]")]
     [CheckPermission(StandardPermissions.Roles)]
     public class RoleController : IdentityControllerBase
     {
-        public RoleController(IServiceProvider serviceProvider)
+        private readonly IRoleQuerier _querier;
+        public RoleController(IServiceProvider serviceProvider, IRoleQuerier querier)
             : base(serviceProvider)
         {
+            _querier = querier;
         }
         /// <summary>
         /// 创建角色
@@ -47,12 +52,12 @@
         /// <summary>
         /// 获取一条角色信息
         /// </summary>
-        /// <param name="query">查询角色参数</param>
+        /// <param name="id">角色Id</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<RoleDto> Get([FromQuery] GetRoleByIdQuery query)
+        public async Task<RoleModel> Get([FromQuery] int id)
         {
-            return await Mediator.Send(query);
+            return await _querier.GetRoleByIdAsync(id);
         }
         /// <summary>
         /// 获取角色列表
@@ -60,9 +65,9 @@
         /// <param name="query"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<PagedResultDto<RoleListDto>> GetAll([FromQuery] GetRolesQuery query)
+        public async Task<PagedResultDto<RoleListModel>> GetAll([FromQuery] GetRolesQuery query)
         {
-            return await Mediator.Send(query);
+            return await _querier.GetRolesAsync(query);
         }
 
         /// <summary>
@@ -71,9 +76,9 @@
         /// <returns></returns>
         [HttpGet]
         [NoCheckPermission]
-        public async Task<List<ComboboxItemDto>> GetComboboxItems()
+        public async Task<IEnumerable<ComboboxItemDto>> GetItems()
         {
-            return await Mediator.Send(new GetRoleItemsQuery());
+            return await _querier.GetRoleItemsAsync();
         }
     }
 }

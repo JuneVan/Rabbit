@@ -3,7 +3,6 @@
 namespace Rabbit.Identity.WebAPI.Controllers
 {
 
-    [Route("[controller]/[action]")]
     [ApiController]
     [Authorize]
     public abstract class IdentityControllerBase : ControllerBase
