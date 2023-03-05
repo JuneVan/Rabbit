@@ -1,4 +1,4 @@
-﻿namespace Rabbit.Identity.WebAPI.Application.CommandHandlers.Permissions
+﻿namespace Rabbit.Identity.WebAPI.Application.Commands.Permissions
 {
     public class CreatePermissionCommandHandler : PermissionCommandHandlerBase, IRequestHandler<CreatePermissionCommand>
     {

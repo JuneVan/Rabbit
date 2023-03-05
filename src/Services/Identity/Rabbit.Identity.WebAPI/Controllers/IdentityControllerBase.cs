@@ -1,6 +1,4 @@
-﻿using Rabbit.Authorization;
-
-namespace Rabbit.Identity.WebAPI.Controllers
+﻿namespace Rabbit.Identity.WebAPI.Controllers
 {
 
     [ApiController]

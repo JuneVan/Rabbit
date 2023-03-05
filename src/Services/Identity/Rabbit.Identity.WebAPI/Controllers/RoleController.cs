@@ -1,6 +1,4 @@
-﻿using Rabbit.Identity.WebAPI.Application.Queries;
-
-namespace Rabbit.Identity.WebAPI.Controllers
+﻿namespace Rabbit.Identity.WebAPI.Controllers
 {
     /// <summary>
     /// 角色管理

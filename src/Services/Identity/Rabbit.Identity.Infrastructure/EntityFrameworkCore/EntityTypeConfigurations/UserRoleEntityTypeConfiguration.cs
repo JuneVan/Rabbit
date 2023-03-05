@@ -7,7 +7,7 @@
             builder.ToTable("UserRoles", InfrastructureDefaults.IdentityDbSchema);
             builder.Property("_roleId").HasColumnName("RoleId");
 
-            builder.HasIndex("UserId","_roleId").IsUnique();
+            builder.HasIndex("UserId", "_roleId").IsUnique();
         }
     }
 }

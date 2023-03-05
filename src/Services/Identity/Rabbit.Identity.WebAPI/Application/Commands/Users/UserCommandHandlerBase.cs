@@ -1,4 +1,4 @@
-﻿namespace Rabbit.Identity.WebAPI.Application.CommandHandlers.Users
+﻿namespace Rabbit.Identity.WebAPI.Application.Commands.Users
 {
     public abstract class UserCommandHandlerBase : CommandHandlerBase
     {

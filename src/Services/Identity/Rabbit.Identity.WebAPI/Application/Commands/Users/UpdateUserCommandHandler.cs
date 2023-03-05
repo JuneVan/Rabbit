@@ -1,4 +1,4 @@
-﻿namespace Rabbit.Identity.WebAPI.Application.CommandHandlers.Users
+﻿namespace Rabbit.Identity.WebAPI.Application.Commands.Users
 {
     public class UpdateUserCommandHandler : UserCommandHandlerBase, IRequestHandler<UpdateUserCommand>
     {

@@ -1,4 +1,4 @@
-﻿namespace Rabbit.Identity.WebAPI.Application.CommandHandlers.Roles
+﻿namespace Rabbit.Identity.WebAPI.Application.Commands.Roles
 {
     public abstract class RoleCommandHandlerBase : CommandHandlerBase
     {

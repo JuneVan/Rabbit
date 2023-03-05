@@ -1,6 +1,4 @@
-﻿using Rabbit.Identity.WebAPI.Application.Queries;
-
-namespace Rabbit.Identity.WebAPI.Controllers
+﻿namespace Rabbit.Identity.WebAPI.Controllers
 {
     [Route("v1/[controller]/[action]")]
     public class AccountController : IdentityControllerBase

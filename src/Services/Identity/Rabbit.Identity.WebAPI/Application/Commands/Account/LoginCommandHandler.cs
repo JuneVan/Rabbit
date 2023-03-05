@@ -1,4 +1,4 @@
-﻿namespace Rabbit.Identity.WebAPI.Application.CommandHandlers.Account
+﻿namespace Rabbit.Identity.WebAPI.Application.Commands.Account
 {
     public class LoginCommandHandler : IRequestHandler<LoginCommand, string>
     {

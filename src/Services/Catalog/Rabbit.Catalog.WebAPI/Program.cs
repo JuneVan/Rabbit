@@ -2,7 +2,7 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
 
 var builder = WebApplication.CreateBuilder(args);
- 
+
 var configuration = builder.Configuration;
 var routePrefix = configuration["Settings:RoutePrefix"];
 

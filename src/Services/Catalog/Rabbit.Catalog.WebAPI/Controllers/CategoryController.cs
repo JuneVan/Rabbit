@@ -5,9 +5,9 @@ namespace Rabbit.Catalog.WebAPI.Controllers
     public class CategoryController : CatalogControllerBase
     {
         public CategoryController(IServiceProvider serviceProvider)
-            :base(serviceProvider) 
+            : base(serviceProvider)
         {
-            
+
         }
         /// <summary>
         /// 创建或更新分类

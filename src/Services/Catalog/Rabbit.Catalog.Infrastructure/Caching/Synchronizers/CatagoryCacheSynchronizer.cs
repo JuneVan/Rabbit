@@ -1,8 +1,4 @@
-﻿using MassTransit;
-using Microsoft.Extensions.Caching.Distributed;
-using Rabbit.Events;
-
-namespace Rabbit.Catalog.Infrastructure.Caching.Synchronizers
+﻿namespace Rabbit.Catalog.Infrastructure.Caching.Synchronizers
 {
     internal class CatagoryCacheSynchronizer : IConsumer<EntityChangedEvent<Category>>
     {
