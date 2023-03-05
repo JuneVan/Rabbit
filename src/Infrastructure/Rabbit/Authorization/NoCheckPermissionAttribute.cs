@@ -1,4 +1,4 @@
-﻿namespace Rabbit.Authorization.Permissions
+﻿namespace Rabbit.Authorization
 {
     /// <summary>
     /// 无需检查权限

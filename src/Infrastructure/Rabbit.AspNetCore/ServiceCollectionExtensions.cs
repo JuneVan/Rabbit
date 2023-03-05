@@ -11,7 +11,7 @@
             var options = new PermissionOptions();
             configure?.Invoke(options);
             services.Configure(configure);
-            services.Replace(new ServiceDescriptor(typeof(IPermissionStore), typeof(UrlPermissionStore), ServiceLifetime.Scoped));
+            services.Replace(new ServiceDescriptor(typeof(IPermissionProvider), typeof(UrlPermissionProvider), ServiceLifetime.Scoped));
 #pragma warning disable CS0618
             services.AddTransient<IValidatorFactory, FluentValidationValidatorFactory>();
 #pragma warning restore CS0618 

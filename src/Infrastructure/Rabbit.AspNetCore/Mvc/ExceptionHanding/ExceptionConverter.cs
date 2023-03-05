@@ -1,5 +1,4 @@
-﻿using Rabbit.Domain;
-using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
+﻿using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
 
 namespace Rabbit.AspNetCore.Mvc.ExceptionHanding
 {

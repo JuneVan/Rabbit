@@ -1,13 +1,13 @@
-﻿namespace Rabbit.Authorization.Permissions
+﻿namespace Rabbit.Authorization
 {
-    public class NullPermissionStore : IPermissionStore
+    public class NullPermissionProvider : IPermissionProvider
     {
         public Task ClearPermissionsAsync(int userId)
         {
             throw new NotImplementedException("未实现`IPermissionStore`接口。");
         }
 
-        public Task<IList<string>> GetOrCreatePermissionsAsync(int userId)
+        public Task<IList<string>> GetPermissionsAsync(int userId)
         {
             throw new NotImplementedException("未实现`IPermissionStore`接口。");
         }

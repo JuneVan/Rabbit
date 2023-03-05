@@ -1,11 +1,11 @@
-﻿namespace Rabbit.Authorization.Permissions
+﻿namespace Rabbit.Authorization
 {
-    public class PermissionChecker : IPermissionChecker
+    public class AuthorizationChecker : IAuthorizationChecker
     {
         private readonly IIdentifier _identifier;
-        private readonly IPermissionStore _permissionStore;
-        public PermissionChecker(IIdentifier identifier,
-          IPermissionStore permissionStore)
+        private readonly IPermissionProvider _permissionStore;
+        public AuthorizationChecker(IIdentifier identifier,
+          IPermissionProvider permissionStore)
         {
             _identifier = identifier;
             _permissionStore = permissionStore;
@@ -17,7 +17,7 @@
             if (!_identifier.UserId.HasValue)
                 throw new AuthorizationException("用户未登录");
 
-            var permissions = await _permissionStore.GetOrCreatePermissionsAsync(_identifier.UserId.Value);
+            var permissions = await _permissionStore.GetPermissionsAsync(_identifier.UserId.Value);
             if (permissions == null || !permissions.Contains(permissionName))
                 return false;
             return true;

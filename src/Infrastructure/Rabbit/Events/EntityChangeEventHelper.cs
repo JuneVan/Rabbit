@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace Rabbit.Events
+﻿namespace Rabbit.Events
 {
     public class EntityChangeEventHelper : IEntityChangeEventHelper
     {

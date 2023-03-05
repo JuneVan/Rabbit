@@ -7,13 +7,13 @@
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasComment("Id");
-           
+
 
             if (typeof(IConcurrencyToken).IsAssignableFrom(typeof(TEntity)))
             {
                 builder.Property("ConcurrencyStamp").IsConcurrencyToken();
             }
-           
+
             // 添加注释
             AppendPropertyComments(builder);
         }

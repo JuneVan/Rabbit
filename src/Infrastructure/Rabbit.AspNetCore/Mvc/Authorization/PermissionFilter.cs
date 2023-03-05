@@ -42,12 +42,12 @@
                 var permissionAttributes = ReflectionHelper.GetAttributes<CheckPermissionAttribute>(actionDescriptor.ControllerTypeInfo, actionDescriptor.MethodInfo);
                 if (permissionAttributes == null || !permissionAttributes.Any())
                     return;
-                var permissionChecker = context.HttpContext.RequestServices.GetRequiredService<IPermissionChecker>();
+                var authorizationChecker = context.HttpContext.RequestServices.GetRequiredService<IAuthorizationChecker>();
                 foreach (var permissionAttribute in permissionAttributes)
                 {
                     foreach (var permissionName in permissionAttribute.PermissionNames)
                     {
-                        if (!await permissionChecker.AuthorizeAsync(permissionName))
+                        if (!await authorizationChecker.AuthorizeAsync(permissionName))
                         {
                             logger.LogDebug($"用户[{_identifier.UserId}]操作访问被拒绝，权限值`{permissionName}`。");
                             if (ActionResultHelper.IsObjectResult(context.ActionDescriptor.GetMethodInfo().ReturnType))
