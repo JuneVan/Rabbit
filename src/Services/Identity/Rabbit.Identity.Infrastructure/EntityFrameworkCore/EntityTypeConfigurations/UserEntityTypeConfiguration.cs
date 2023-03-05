@@ -6,14 +6,16 @@
         {
             builder.ToTable("Users", InfrastructureDefaults.IdentityDbSchema);
 
-            builder.Property("_username").HasColumnName("Username").HasMaxLength(128);
-            builder.Property("_passwordHash").HasColumnName("PasswordHash").HasMaxLength(64);
-            builder.Property("_email").HasColumnName("Email").HasMaxLength(128);
-            builder.Property("_phone").HasColumnName("Phone").HasMaxLength(32);
+            builder.Property(x => x.Username).HasMaxLength(128);
+            builder.Property(x => x.PasswordHash).HasMaxLength(64);
+            builder.Property(x => x.Email).HasMaxLength(128);
+            builder.Property(x => x.Phone).HasMaxLength(32);
             builder.Ignore(x => x.DomainEvents);
-            builder.HasMany(x => x.Roles).WithOne().HasForeignKey("UserId");
+            builder.HasMany(x => x.Roles).WithOne().HasForeignKey(x => x.UserId);
 
-            builder.HasIndex("_username").IsUnique();
+            builder.HasIndex(x => x.Username).IsUnique();
+            builder.HasIndex(x => x.Email).IsUnique();
+            builder.HasIndex(x => x.Phone).IsUnique();
         }
     }
 }

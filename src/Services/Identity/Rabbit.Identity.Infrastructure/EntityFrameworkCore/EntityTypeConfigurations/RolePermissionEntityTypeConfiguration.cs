@@ -6,8 +6,7 @@
         {
             builder.ToTable("RolePermissions", InfrastructureDefaults.IdentityDbSchema);
 
-            builder.Property("_permissionId").HasColumnName("PermissionId");
-            builder.HasIndex("_permissionId", "RoleId").IsUnique();
+            builder.HasIndex(x => new { x.RoleId, x.PermissionId }).IsUnique();
         }
     }
 }

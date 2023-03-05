@@ -43,6 +43,10 @@ namespace Rabbit.Identity.Infrastructure.Migrations
                     b.Property<int?>("DeleterUserId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
@@ -52,23 +56,16 @@ namespace Rabbit.Identity.Infrastructure.Migrations
                     b.Property<int?>("LastModifierUserId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("_description")
+                    b.Property<string>("Name")
                         .HasMaxLength(128)
-                        .HasColumnType("character varying(128)")
-                        .HasColumnName("Description");
+                        .HasColumnType("character varying(128)");
 
-                    b.Property<string>("_name")
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)")
-                        .HasColumnName("Name");
-
-                    b.Property<int?>("_parentId")
-                        .HasColumnType("integer")
-                        .HasColumnName("ParentId");
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("_name")
+                    b.HasIndex("Name")
                         .IsUnique();
 
                     b.ToTable("Permissions", "identity_v1");
@@ -94,7 +91,17 @@ namespace Rabbit.Identity.Infrastructure.Migrations
                     b.Property<int?>("DeleterUserId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsSystemRole")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastModifiedTime")
@@ -103,27 +110,13 @@ namespace Rabbit.Identity.Infrastructure.Migrations
                     b.Property<int?>("LastModifierUserId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("_description")
+                    b.Property<string>("Name")
                         .HasMaxLength(128)
-                        .HasColumnType("character varying(128)")
-                        .HasColumnName("Description");
-
-                    b.Property<bool>("_isActive")
-                        .HasColumnType("boolean")
-                        .HasColumnName("IsActive");
-
-                    b.Property<bool>("_isSystemRole")
-                        .HasColumnType("boolean")
-                        .HasColumnName("IsSystemRole");
-
-                    b.Property<string>("_name")
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)")
-                        .HasColumnName("Name");
+                        .HasColumnType("character varying(128)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("_name")
+                    b.HasIndex("Name")
                         .IsUnique();
 
                     b.ToTable("Roles", "identity_v1");
@@ -137,18 +130,15 @@ namespace Rabbit.Identity.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("RoleId")
+                    b.Property<int>("PermissionId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("_permissionId")
-                        .HasColumnType("integer")
-                        .HasColumnName("PermissionId");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("_permissionId", "RoleId")
+                    b.HasIndex("RoleId", "PermissionId")
                         .IsUnique();
 
                     b.ToTable("RolePermissions", "identity_v1");
@@ -174,8 +164,24 @@ namespace Rabbit.Identity.Infrastructure.Migrations
                     b.Property<int?>("DeleterUserId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Email")
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<bool>("IsSystemUser")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastLoginTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("LastModifiedTime")
                         .HasColumnType("timestamp with time zone");
@@ -183,29 +189,27 @@ namespace Rabbit.Identity.Infrastructure.Migrations
                     b.Property<int?>("LastModifierUserId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("_email")
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)")
-                        .HasColumnName("Email");
-
-                    b.Property<string>("_passwordHash")
+                    b.Property<string>("PasswordHash")
                         .HasMaxLength(64)
-                        .HasColumnType("character varying(64)")
-                        .HasColumnName("PasswordHash");
+                        .HasColumnType("character varying(64)");
 
-                    b.Property<string>("_phone")
+                    b.Property<string>("Phone")
                         .HasMaxLength(32)
-                        .HasColumnType("character varying(32)")
-                        .HasColumnName("Phone");
+                        .HasColumnType("character varying(32)");
 
-                    b.Property<string>("_username")
+                    b.Property<string>("Username")
                         .HasMaxLength(128)
-                        .HasColumnType("character varying(128)")
-                        .HasColumnName("Username");
+                        .HasColumnType("character varying(128)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("_username")
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Phone")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
                         .IsUnique();
 
                     b.ToTable("Users", "identity_v1");
@@ -219,16 +223,15 @@ namespace Rabbit.Identity.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("RoleId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("_roleId")
-                        .HasColumnType("integer")
-                        .HasColumnName("RoleId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId", "_roleId")
+                    b.HasIndex("UserId", "RoleId")
                         .IsUnique();
 
                     b.ToTable("UserRoles", "identity_v1");
@@ -238,14 +241,18 @@ namespace Rabbit.Identity.Infrastructure.Migrations
                 {
                     b.HasOne("Rabbit.Identity.AggregateModels.RoleAggregate.Role", null)
                         .WithMany("Permissions")
-                        .HasForeignKey("RoleId");
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Rabbit.Identity.AggregateModels.UserAggregate.UserRole", b =>
                 {
                     b.HasOne("Rabbit.Identity.AggregateModels.UserAggregate.User", null)
                         .WithMany("Roles")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Rabbit.Identity.AggregateModels.RoleAggregate.Role", b =>

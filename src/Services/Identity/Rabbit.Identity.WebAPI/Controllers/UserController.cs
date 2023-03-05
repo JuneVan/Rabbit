@@ -1,4 +1,6 @@
-﻿namespace Rabbit.Identity.WebAPI.Controllers
+﻿using Rabbit.Identity.WebAPI.Application.Commands;
+
+namespace Rabbit.Identity.WebAPI.Controllers
 {
     /// <summary>
     /// 用户管理

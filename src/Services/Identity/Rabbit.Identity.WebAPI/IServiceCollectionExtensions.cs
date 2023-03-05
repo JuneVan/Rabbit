@@ -8,6 +8,7 @@
             AddSwaggerGen(services);
             AddCORS(services, configuration);
             AddValidation(services);
+            AddMapper(services);
             AddHealthChecks(services);
             AddMediatR(services);
             AddServices(services, configuration);
@@ -80,6 +81,11 @@
         {
             services.AddValidatorsFromAssembly(typeof(Program).Assembly);
         }
+        // 添加对象映射
+        private static void AddMapper(IServiceCollection services)
+        {
+            services.AddAutoMapper(typeof(Program).Assembly);
+        }
         // 添加健康检查
         private static void AddHealthChecks(IServiceCollection services)
         {
@@ -127,13 +133,17 @@
             services.AddScoped<IConnectionStringProvider, EfCoreConnectionStringProvider>();
             services.AddAspNetCore(configure =>
             {
-                configure.RequestUrl = configuration["Settings:Permission:RequestUrl"];
+                configure.RequestUrl = configuration["Settings:PermissionUrl"];
             });
             services.AddCaching(configure =>
             {
                 configure.ConnectionString = configuration.GetConnectionString("RedisDb");
             });
-
+            // IQuerier
+            services.AddScoped<IUserQuerier, UserQuerier>();
+            services.AddScoped<IRoleQuerier, RoleQuerier>();
+            services.AddScoped<IPermissionQuerier, PermissionQuerier>();
+            services.AddScoped<IAccountQuerier, AccountQuerier>();
         }
     }
 }

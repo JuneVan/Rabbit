@@ -2,10 +2,11 @@
 {
     public class UserRole : Entity
     {
-        private int _roleId;
+        public int RoleId { get;private set; }
+        public int UserId { get; private set; }
         public UserRole(int roleId)
         {
-            _roleId = roleId;
+            RoleId = roleId;
         }
     }
 }

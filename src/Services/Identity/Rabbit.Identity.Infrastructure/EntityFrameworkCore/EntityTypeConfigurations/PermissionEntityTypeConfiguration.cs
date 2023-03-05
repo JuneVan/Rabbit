@@ -6,12 +6,11 @@
         {
             builder.ToTable("Permissions", InfrastructureDefaults.IdentityDbSchema);
 
-            builder.Property("_name").HasColumnName("Name").HasMaxLength(128);
-            builder.Property("_description").HasColumnName("Description").HasMaxLength(128);
-            builder.Property("_parentId").HasColumnName("ParentId");
+            builder.Property(x => x.Name).HasMaxLength(128);
+            builder.Property(x => x.Description).HasMaxLength(128);
             builder.Ignore(x => x.DomainEvents);
 
-            builder.HasIndex("_name").IsUnique();
+            builder.HasIndex(x => x.Name).IsUnique();
 
         }
     }

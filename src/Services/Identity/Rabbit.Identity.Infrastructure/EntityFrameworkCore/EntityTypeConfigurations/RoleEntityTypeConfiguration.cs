@@ -7,16 +7,14 @@
             builder.ToTable("Roles", InfrastructureDefaults.IdentityDbSchema);
 
 
-            builder.Property("_name").HasColumnName("Name").HasMaxLength(128);
-            builder.Property("_description").HasColumnName("Description").HasMaxLength(128);
-            builder.Property("_isActive").HasColumnName("IsActive");
-            builder.Property("_isSystemRole").HasColumnName("IsSystemRole");
+            builder.Property(x => x.Name).HasMaxLength(128);
+            builder.Property(x => x.Description).HasMaxLength(128);
 
             builder.Ignore(x => x.DomainEvents);
 
             builder.HasMany(x => x.Permissions).WithOne().HasForeignKey("RoleId");
 
-            builder.HasIndex("_name").IsUnique();
+            builder.HasIndex(x => x.Name).IsUnique();
         }
     }
 }

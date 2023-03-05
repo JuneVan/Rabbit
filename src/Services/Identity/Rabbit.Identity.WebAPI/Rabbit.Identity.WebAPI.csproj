@@ -25,6 +25,7 @@
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.26.1" />
 		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.24" />
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
 		<PackageReference Include="Npgsql" Version="6.0.8" />
 	</ItemGroup>
 
@@ -34,6 +35,6 @@
 	  <ProjectReference Include="..\Rabbit.Identity.Infrastructure\Rabbit.Identity.Infrastructure.csproj" /> 
 	</ItemGroup>
 
-	<ProjectExtensions><VisualStudio><UserProperties appsettings_1local_1json__JsonSchema="https://json.schemastore.org/appsettings.json" /></VisualStudio></ProjectExtensions>
+	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

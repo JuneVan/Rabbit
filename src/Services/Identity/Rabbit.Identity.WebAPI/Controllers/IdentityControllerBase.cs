@@ -2,7 +2,7 @@
 {
 
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public abstract class IdentityControllerBase : ControllerBase
     {
         public IdentityControllerBase(IServiceProvider serviceProvider)

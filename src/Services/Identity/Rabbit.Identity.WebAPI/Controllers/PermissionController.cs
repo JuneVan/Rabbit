@@ -1,4 +1,6 @@
-﻿namespace Rabbit.Identity.WebAPI.Controllers
+﻿using Rabbit.Identity.WebAPI.Application.Commands;
+
+namespace Rabbit.Identity.WebAPI.Controllers
 {
     /// <summary>
     /// 权限管理
@@ -64,7 +66,7 @@
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<TreeItemDto>> GetTree()
+        public async Task<IEnumerable<TreeItemDto>> GetTreeItems()
         {
             return await _querier.GetPermissionTreeItemsAsync();
         }

@@ -2,10 +2,11 @@
 {
     public class RolePermission : Entity
     {
-        private int _permissionId;
+        public int RoleId { get; set; }
+        public int PermissionId { get; set; }
         public RolePermission(int permissionId)
         {
-            _permissionId = permissionId;
+            PermissionId = permissionId;
         }
     }
 }

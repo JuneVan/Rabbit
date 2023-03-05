@@ -2,5 +2,6 @@
 {
     public class GetRolesQuery : PagedRequestDto
     {
+        public string Name { get; set; }
     }
 }
