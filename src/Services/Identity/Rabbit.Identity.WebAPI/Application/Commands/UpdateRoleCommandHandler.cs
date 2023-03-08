@@ -8,7 +8,7 @@
             : base(serviceProvider, roleRepository)
         {
         }
-        public async Task<Unit> Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
         {
             var role = await RoleRepository.IncludingFirstOrDefaultAsync(request.Id, x => x.Permissions);
             if (role == null)
@@ -19,7 +19,6 @@
             await CheckDuplicatedRoleAsync(role);
             await RoleRepository.UpdateAsync(role);
             await RoleRepository.UnitOfWork.CommitAsync();
-            return Unit.Value;
         }
     }
 }

@@ -139,6 +139,7 @@
             {
                 configure.ConnectionString = configuration.GetConnectionString("RedisDb");
             });
+           
             // IQuerier
             services.AddScoped<IUserQuerier, UserQuerier>();
             services.AddScoped<IRoleQuerier, RoleQuerier>();

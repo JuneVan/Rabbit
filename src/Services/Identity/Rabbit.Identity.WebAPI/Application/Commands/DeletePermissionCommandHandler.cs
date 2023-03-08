@@ -8,7 +8,7 @@
             : base(serviceProvider, permissionRepository)
         {
         }
-        public async Task<Unit> Handle(DeletePermissionCommand request, CancellationToken cancellationToken)
+        public async Task Handle(DeletePermissionCommand request, CancellationToken cancellationToken)
         {
             var permission = await PermissionRepository.FirstOrDefaultAsync(request.Id);
             if (permission == null)
@@ -16,7 +16,6 @@
 
             await PermissionRepository.DeleteAsync(permission);
             await PermissionRepository.UnitOfWork.CommitAsync();
-            return Unit.Value;
         }
     }
 }

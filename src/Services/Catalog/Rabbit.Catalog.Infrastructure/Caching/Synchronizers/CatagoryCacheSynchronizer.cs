@@ -1,13 +1,16 @@
-﻿namespace Rabbit.Catalog.Infrastructure.Caching.Synchronizers
+﻿using MediatR;
+
+namespace Rabbit.Catalog.Infrastructure.Caching.Synchronizers
 {
-    internal class CatagoryCacheSynchronizer : IConsumer<EntityChangedEvent<Category>>
+    internal class CatagoryCacheSynchronizer : INotificationHandler<EntityChangedEvent<Category>>
     {
         private readonly IDistributedCache _distributedCache;
         public CatagoryCacheSynchronizer(IDistributedCache distributedCache)
         {
             _distributedCache = distributedCache;
         }
-        public async Task Consume(ConsumeContext<EntityChangedEvent<Category>> context)
+
+        public async Task Handle(EntityChangedEvent<Category> notification, CancellationToken cancellationToken)
         {
             await _distributedCache.RemoveAsync("aa");
         }

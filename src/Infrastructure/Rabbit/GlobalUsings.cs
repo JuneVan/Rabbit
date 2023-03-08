@@ -1,6 +1,4 @@
-﻿global using MassTransit;
-global using Microsoft.Extensions.DependencyInjection;
-global using Microsoft.Extensions.Logging;
+﻿global using Microsoft.Extensions.Logging;
 global using Rabbit.Authorization;
 global using Rabbit.Events;
 global using Rabbit.Extensions;
@@ -12,3 +10,4 @@ global using System.Reflection;
 global using System.Runtime.ExceptionServices;
 global using System.Security.Cryptography;
 global using System.Text;
+global using MediatR;

@@ -8,7 +8,7 @@
             : base(serviceProvider, userRepository)
         {
         }
-        public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var user = new User(request.Username);
             user.SetPasswordHash(Md5Algorithm.Encrypt(request.Password));
@@ -26,7 +26,6 @@
             await CheckDuplidateUserAsync(user);
             await UserRepository.InsertAsync(user);
             await UserRepository.UnitOfWork.CommitAsync();
-            return Unit.Value;
         }
     }
 }

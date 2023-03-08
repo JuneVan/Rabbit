@@ -8,14 +8,15 @@
             : base(serviceProvider, permissionRepository)
         {
         }
-        public async Task<Unit> Handle(CreatePermissionCommand request, CancellationToken cancellationToken)
+
+
+        public async Task Handle(CreatePermissionCommand request, CancellationToken cancellationToken)
         {
             var permission = new Permission(request.Name, request.Description, request.ParentId);
             await CheckDuplicatedPermissionAsync(permission);
 
             await PermissionRepository.InsertAsync(permission);
             await PermissionRepository.UnitOfWork.CommitAsync();
-            return Unit.Value;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Rabbit.Events
 {
-    public abstract class DomainEvent
+    public class IEvent : INotification
     {
         public DateTime CreatedTime { get; set; }
     }

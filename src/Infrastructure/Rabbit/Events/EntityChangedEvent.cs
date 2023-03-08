@@ -1,6 +1,6 @@
 ﻿namespace Rabbit.Events
 {
-    public record EntityChangedEvent<TEntity>
+    public record EntityChangedEvent<TEntity> : INotification
     {
         public EntityChangedEvent(TEntity entity)
         {

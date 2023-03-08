@@ -9,11 +9,11 @@
         public EfCoreDbContext(DbContextOptions options, IServiceProvider serviceProvider) : base(options)
         {
             Identifier = serviceProvider.GetService<IIdentifier>();
-            EntityChangeEventHelper = serviceProvider.GetService<IEntityChangeEventHelper>();
+            EntityChangeEventHelper = serviceProvider.GetService<IEntityEventHelper>();
         }
         protected virtual string Schema { get; }
         protected virtual IIdentifier Identifier { get; }
-        protected virtual IEntityChangeEventHelper EntityChangeEventHelper { get; private set; }
+        protected virtual IEntityEventHelper EntityChangeEventHelper { get; private set; }
         public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             ApplyAuditedEntity();

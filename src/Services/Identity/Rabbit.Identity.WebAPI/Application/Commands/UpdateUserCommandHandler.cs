@@ -9,7 +9,7 @@
         {
         }
 
-        public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
             var user = await UserRepository.IncludingFirstOrDefaultAsync(request.Id, x => x.Roles);
             if (user == null)
@@ -32,7 +32,6 @@
             await CheckDuplidateUserAsync(user);
             await UserRepository.UpdateAsync(user);
             await UserRepository.UnitOfWork.CommitAsync();
-            return Unit.Value;
         }
     }
 }

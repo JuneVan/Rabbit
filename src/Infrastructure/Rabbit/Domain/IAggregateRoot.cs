@@ -2,8 +2,8 @@
 {
     public interface IAggregateRoot : IEntity
     {
-        IReadOnlyList<DomainEvent> DomainEvents { get; }
-        void AddDomainEvent(DomainEvent domainEvent);
+        IReadOnlyList<IEvent> DomainEvents { get; }
+        void AddDomainEvent(IEvent domainEvent);
         void ClearDomainEvents();
     }
 }

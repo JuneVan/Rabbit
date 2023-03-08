@@ -97,15 +97,7 @@
         {
             services.AddMediatR(typeof(Program).Assembly);
         }
-        //private static void AddEventBus(IServiceCollection services)
-        //{
-        //    services.AddMassTransit(x =>
-        //    {
-        //        x.UsingRabbitMq((context, cfg) => { 
-        //            cfg.Host("localhost", "/", h => { h.Username("guest"); h.Password("guest"); });
-        //            cfg.ConfigureEndpoints(context); });
-        //    });
-        //}
+
         private static void AddJWTAuthentication(IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<JwtOptions>(configuration.GetSection("JWTAuthentication"));

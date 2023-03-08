@@ -1,6 +1,6 @@
 ﻿namespace Rabbit.Events
 {
-    public interface IEntityChangeEventHelper
+    public interface IEntityEventHelper
     {
         Task PublishEntityChangeEvent(object entity);
         Task PublishEntityCreatedEvent(object entity);
