@@ -5,7 +5,9 @@
         public string Name { get; private set; }
         public string Description { get; private set; }
         public bool IsActive { get; private set; }
-        public ICollection<RolePermission> Permissions { get; private set; }
+
+        public List<RolePermission> _permissions;
+        public IReadOnlyCollection<RolePermission> Permissions => _permissions.AsReadOnly();
         public bool IsSystemRole { get; private set; }
 
         public Role(string name, string description, bool isActive, bool isSystemRole)
@@ -37,15 +39,15 @@
         public void AddPermission(int permissionId)
         {
             if (permissionId < 0) throw new ArgumentOutOfRangeException(nameof(permissionId), "权限Id无效。");
-            if (Permissions == null) Permissions = new List<RolePermission>();
-            Permissions.Add(new RolePermission(permissionId));
+            if (_permissions == null) _permissions = new List<RolePermission>();
+            _permissions.Add(new RolePermission(permissionId));
         }
         public void RemovePermission(int rolePermissionId)
         {
-            if (Permissions == null) return;
-            var permission = Permissions.FirstOrDefault(x => x.Id == rolePermissionId);
+            if (_permissions == null) return;
+            var permission = _permissions.FirstOrDefault(x => x.Id == rolePermissionId);
             if (permission != null)
-                Permissions.Remove(permission);
+                _permissions.Remove(permission);
         }
     }
 }

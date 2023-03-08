@@ -36,10 +36,13 @@
         /// 最后登录时间
         /// </summary>
         public DateTime? LastLoginTime { get; private set; }
+         
+
+        private List<UserRole> _roles;
         /// <summary>
         /// 关联角色
         /// </summary>
-        public ICollection<UserRole> Roles { get; private set; }
+        public IReadOnlyCollection<UserRole> Roles => _roles.AsReadOnly();  // 根据领域驱动设计聚合的实体生命周期由聚合根维护，所以对外可访问的实体集合只能是只读的
         /// <summary>
         /// 是否为系统用户
         /// </summary>
@@ -92,14 +95,14 @@
         public void AddRole(int roleId)
         {
             if (roleId < 0) throw new ArgumentOutOfRangeException(nameof(roleId), "角色Id无效。");
-            if (Roles == null) Roles = new List<UserRole>();
-            Roles.Add(new UserRole(roleId));
+            if (_roles == null) _roles = new List<UserRole>();
+            _roles.Add(new UserRole(roleId));
         }
         public void RemoveRole(int userRoleId)
         {
-            if (Roles == null) return;
-            var role = Roles.FirstOrDefault(x => x.Id == userRoleId);
-            Roles.Remove(role);
+            if (_roles == null) return;
+            var role = _roles.FirstOrDefault(x => x.Id == userRoleId);
+            _roles.Remove(role);
         }
     }
 }

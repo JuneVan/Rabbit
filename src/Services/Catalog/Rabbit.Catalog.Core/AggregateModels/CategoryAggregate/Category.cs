@@ -5,27 +5,47 @@
     /// </summary>
     public class Category : FullAuditedAggregateRoot
     {
-        private string _name;
-        private int? _parentId;
-        private int _displayOrder;
-        public Category(string name, int? parentId, int displayOrder)
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; private set; }
+        /// <summary>
+        /// 上级Id
+        /// </summary>
+        public int? ParentId { get; private set; }
+        /// <summary>
+        /// 上级分类
+        /// </summary>
+        public Category Parent { get; private set; }
+
+        
+        private List<Category> _children;
+        /// <summary>
+        /// 下级分类集合
+        /// </summary>
+        public IReadOnlyCollection<Category> Children => _children.AsReadOnly();
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int DisplayOrder { get; private set; }
+        public Category(string name, int displayOrder, Category parent = null)
         {
             SetName(name);
-            SetParentId(parentId);
+            SetParent(parent);
             SetDisplayOrder(displayOrder);
         }
         public void SetName(string name)
         {
             if (name == null) throw new ArgumentNullException("name", "分类名称不能为空");
-            _name = name;
+            Name = name;
         }
-        public void SetParentId(int? parentId)
+        public void SetParent(Category parent)
         {
-            _parentId = parentId;
+            Parent = parent;
         }
         public void SetDisplayOrder(int displayOrder)
         {
-            _displayOrder = displayOrder;
+            DisplayOrder = displayOrder;
         }
 
     }

@@ -5,15 +5,25 @@
     /// </summary>
     public class Template : Entity
     {
-
-        private string _name;
-        public int _categoryId;
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; private set; }
+        /// <summary>
+        /// 所属分类
+        /// </summary>
+        public int CategoryId { get; private set; }
+         
         private List<TemplateGroup> _groups;
-        public IReadOnlyList<TemplateGroup> Groups => _groups;
+        public IReadOnlyCollection<TemplateGroup> Groups => _groups;
+
+        private List<TemplateGroupItem> _items;
+        public IReadOnlyCollection<TemplateGroupItem> Items => _items;
+
         public Template(string name, int categoryId)
         {
             SetName(name);
-            _categoryId = categoryId;
+            CategoryId = categoryId;
             _groups = new List<TemplateGroup>();
         }
         /// <summary>
@@ -24,7 +34,7 @@
         public void SetName(string name)
         {
             if (name == null) throw new ArgumentNullException("name", "属性模板名称不能为空");
-            _name = name;
+            Name = name;
         }
         /// <summary>
         /// 设置分类Id
@@ -34,7 +44,7 @@
         public void SetCategory(int categoryId)
         {
             if (categoryId <= 0) throw new ArgumentOutOfRangeException(nameof(categoryId), $"分类Id`{categoryId}`无效");
-            _categoryId = categoryId;
+            CategoryId = categoryId;
         }
         /// <summary>
         /// 添加分组

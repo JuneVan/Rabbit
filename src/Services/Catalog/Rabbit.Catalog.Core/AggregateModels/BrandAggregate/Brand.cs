@@ -1,10 +1,13 @@
 ﻿namespace Rabbit.Catalog.AggregateModels.BrandAggregate
 {
+    /// <summary>
+    /// 品牌
+    /// </summary>
     public class Brand : Entity
     {
-        private string _name;
-        private string _description;
-        private string _logo;
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public string Logo { get; private set; }
         public Brand(string name, string description, string logo)
         {
             SetName(name);
@@ -13,16 +16,16 @@
         }
         public void SetName(string name)
         {
-            if (name == null) throw new ArgumentNullException("name", "品牌名称不能为空");
-            _name = name;
+            if (name == null) throw new ArgumentNullException(nameof(name), "品牌名称不能为空");
+            Name = name;
         }
         public void SetDescription(string description)
         {
-            _description = description;
+            Description = description;
         }
         public void SetLogo(string logo)
         {
-            _logo = logo;
+            Logo = logo;
         }
     }
 }

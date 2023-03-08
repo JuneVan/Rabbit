@@ -12,7 +12,7 @@
 
             builder.Ignore(x => x.DomainEvents);
 
-            builder.HasMany(x => x.Permissions).WithOne().HasForeignKey("RoleId");
+            builder.HasMany(x=>x.Permissions).WithOne().HasForeignKey(x=>x.RoleId);
 
             builder.HasIndex(x => x.Name).IsUnique();
         }

@@ -7,9 +7,7 @@
             base.Configure(builder);
             builder.ToTable("Categories");
 
-            builder.Property("_name").HasColumnName("Name");
-            builder.Property("_parentId").HasColumnName("ParentId");
-            builder.Property("_displayOrder").HasColumnName("DisplayOrder");
+            builder.HasMany(x => x.Children).WithOne().HasForeignKey(x => x.ParentId);
         }
     }
 }

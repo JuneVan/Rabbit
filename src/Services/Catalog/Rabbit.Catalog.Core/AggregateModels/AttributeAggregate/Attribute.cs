@@ -5,21 +5,25 @@
     /// </summary>
     public class Attribute : Entity
     {
-        private string _name;
-        private bool _isRequired;
-        private int _displayOrder;
-        private AttributeDisplayType _displayType;
+        public string Name { get; private set; }
+        public bool IsRequired { get; private set; }
+        public int DisplayOrder { get; private set; }
+        public AttributeDisplayType DisplayType { get; private set; }
+
         private List<AttributeOption> _options;
         public IReadOnlyList<AttributeOption> Options => _options;
 
-        public Attribute(string name, bool isRequired, int display, AttributeDisplayType displayType)
+        public Attribute(string name, bool isRequired, int displayOrder, AttributeDisplayType displayType)
         {
-            if (name == null) throw new ArgumentNullException("name", "属性名称不能为空");
-            _name = name;
-            _isRequired = isRequired;
-            _displayOrder = display;
-            _displayType = displayType;
-            _options = new List<AttributeOption>();
+            SetName(name);
+            SetIsRequired(isRequired);
+            SetDisplayOrder(displayOrder);
+            SetDisplayType(displayType);
+        }
+        public void SetName(string name)
+        {
+            if (name == null) throw new ArgumentNullException(nameof(name), "属性名称不能为空");
+            Name = name;
         }
         /// <summary>
         /// 设置是否必填
@@ -27,7 +31,7 @@
         /// <param name="isRequired">是否必填</param>
         public void SetIsRequired(bool isRequired)
         {
-            _isRequired = isRequired;
+            IsRequired = isRequired;
         }
         /// <summary>
         /// 设置排序值
@@ -35,7 +39,12 @@
         /// <param name="displayOrder">排序值</param>
         public void SetDisplayOrder(int displayOrder)
         {
-            _displayOrder = displayOrder;
+            DisplayOrder = displayOrder;
+        }
+
+        public void SetDisplayType(AttributeDisplayType displayType)
+        {
+            DisplayType = displayType;
         }
         /// <summary>
         /// 添加选项

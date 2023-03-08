@@ -12,9 +12,13 @@ namespace Rabbit.Catalog.WebAPI.CommandHandlers.Catagories
         }
         public async Task<int> Handle(CreateOrUpdateCommand request, CancellationToken cancellationToken)
         {
+            // 检查上级分类
+            Category parent = null;
+            if (request.ParentId.HasValue)
+                parent = await _categoryRepository.FirstOrDefaultAsync(request.ParentId.Value);
             if (!request.Id.HasValue)
             {
-                var category = new Category(request.Name, request.ParentId, request.DisplayOrder);
+                var category = new Category(request.Name, request.DisplayOrder, parent);
                 var categoryId = await _categoryRepository.InsertAndGetIdAsync(category);
                 await _categoryRepository.UnitOfWork.CommitAsync();
                 return categoryId;
@@ -24,6 +28,7 @@ namespace Rabbit.Catalog.WebAPI.CommandHandlers.Catagories
                 var category = await _categoryRepository.FirstOrDefaultAsync(request.Id.Value);
                 category.SetName(request.Name);
                 category.SetDisplayOrder(request.DisplayOrder);
+                category.SetParent(parent);
                 await _categoryRepository.UpdateAsync(category);
                 await _categoryRepository.UnitOfWork.CommitAsync();
                 return request.Id.Value;

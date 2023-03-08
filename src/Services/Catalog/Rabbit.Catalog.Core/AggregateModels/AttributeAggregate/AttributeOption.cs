@@ -5,8 +5,9 @@
     /// </summary>
     public class AttributeOption : Entity
     {
-        private string _name;
-        private int _displayOrder;
+       public string Name { get;private set; }
+       public int DisplayOrder { get;private set; } 
+       public int AttributeId { get;private set; }
         public AttributeOption(string name, int displayOrder)
         {
             SetName(name);
@@ -19,8 +20,8 @@
         /// <exception cref="ArgumentNullException"></exception>
         public void SetName(string name)
         {
-            if (name == null) throw new ArgumentNullException("name", "属性选项名称不能为空");
-            _name = name;
+            if (name == null) throw new ArgumentNullException(nameof(name), "属性选项名称不能为空");
+            Name = name;
         }
         /// <summary>
         /// 设置排序值
@@ -28,7 +29,7 @@
         /// <param name="displayOrder"></param>
         public void SetDisplayOrder(int displayOrder)
         {
-            _displayOrder = displayOrder;
+            DisplayOrder = displayOrder;
         }
     }
 }
