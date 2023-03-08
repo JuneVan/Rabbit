@@ -2,19 +2,19 @@
 {
     public abstract class EntityEventHelperBase : IEntityEventHelper
     {
-        public async Task PublishEntityChangeEvent(object entity)
+        public async Task SendEntityChangeEventAsync(object entity)
         {
             await PublishEvent(typeof(EntityChangedEvent<>), entity);
         }
-        public async Task PublishEntityCreatedEvent(object entity)
+        public async Task SendEntityCreatedEventAsync(object entity)
         {
             await PublishEvent(typeof(EntityCreatedEvent<>), entity);
         }
-        public async Task PublishUpdatedEvent(object entity)
+        public async Task SendEntityUpdatedEventAsync(object entity)
         {
             await PublishEvent(typeof(EntityUpdatedEvent<>), entity);
         }
-        public async Task PublishEntityDeletedEvent(object entity)
+        public async Task SendEntityDeletedEventAsync(object entity)
         {
             await PublishEvent(typeof(EntityDeletedEvent<>), entity);
         }

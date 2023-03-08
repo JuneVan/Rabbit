@@ -2,9 +2,9 @@
 {
     public interface IEntityEventHelper
     {
-        Task PublishEntityChangeEvent(object entity);
-        Task PublishEntityCreatedEvent(object entity);
-        Task PublishUpdatedEvent(object entity);
-        Task PublishEntityDeletedEvent(object entity);
+        Task SendEntityChangeEventAsync(object entity);
+        Task SendEntityCreatedEventAsync(object entity);
+        Task SendEntityUpdatedEventAsync(object entity);
+        Task SendEntityDeletedEventAsync(object entity);
     }
 }

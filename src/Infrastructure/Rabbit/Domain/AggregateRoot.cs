@@ -2,12 +2,12 @@
 {
     public class AggregateRoot : Entity, IAggregateRoot
     {
-        private List<IEvent> _domainEvents;
-        public IReadOnlyList<IEvent> DomainEvents => _domainEvents ?? new List<IEvent>();
+        private List<IDomainEvent> _domainEvents;
+        public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents ?? new List<IDomainEvent>();
 
-        public void AddDomainEvent(IEvent domainEvent)
+        public void AddDomainEvent(IDomainEvent domainEvent)
         {
-            if (_domainEvents == null) _domainEvents = new List<IEvent>();
+            if (_domainEvents == null) _domainEvents = new List<IDomainEvent>();
             _domainEvents.Add(domainEvent);
         }
         public void ClearDomainEvents()

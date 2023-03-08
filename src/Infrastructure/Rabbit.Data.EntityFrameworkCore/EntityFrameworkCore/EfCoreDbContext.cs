@@ -9,15 +9,17 @@
         public EfCoreDbContext(DbContextOptions options, IServiceProvider serviceProvider) : base(options)
         {
             Identifier = serviceProvider.GetService<IIdentifier>();
-            EntityChangeEventHelper = serviceProvider.GetService<IEntityEventHelper>();
+            EntityEventHelper = serviceProvider.GetService<IEntityEventHelper>();
+            EventBus = serviceProvider.GetService<IEventBus>();
         }
         protected virtual string Schema { get; }
         protected virtual IIdentifier Identifier { get; }
-        protected virtual IEntityEventHelper EntityChangeEventHelper { get; private set; }
+        protected virtual IEntityEventHelper EntityEventHelper { get; private set; }
+        protected virtual IEventBus EventBus { get; private set; }
         public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             ApplyAuditedEntity();
-            PublishEntityEvents();
+            PublishEvents();
             int result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken); ;
             return result;
         }
@@ -25,7 +27,7 @@
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
             ApplyAuditedEntity();
-            PublishEntityEvents();
+            PublishEvents();
             int result = base.SaveChanges(acceptAllChangesOnSuccess);
             return result;
         }
@@ -47,24 +49,30 @@
 
         #region Utilities
         /// <summary>
-        /// 实体事件通知
+        /// 发布事件
         /// </summary>
-        private void PublishEntityEvents()
+        private void PublishEvents()
         {
             foreach (EntityEntry entry in ChangeTracker.Entries().ToList())
             {
-                EntityChangeEventHelper?.PublishEntityChangeEvent(entry.Entity);
+                EntityEventHelper?.SendEntityChangeEventAsync(entry.Entity);
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        EntityChangeEventHelper?.PublishEntityCreatedEvent(entry.Entity);
+                        EntityEventHelper?.SendEntityCreatedEventAsync(entry.Entity);
                         break;
                     case EntityState.Modified:
-                        EntityChangeEventHelper?.PublishUpdatedEvent(entry.Entity);
+                        EntityEventHelper?.SendEntityUpdatedEventAsync(entry.Entity);
                         break;
                     case EntityState.Deleted:
-                        EntityChangeEventHelper?.PublishEntityDeletedEvent(entry.Entity);
+                        EntityEventHelper?.SendEntityDeletedEventAsync(entry.Entity);
                         break;
+                }
+                if (entry.Entity is IAggregateRoot aggregateRoot)
+                {
+                    var domainEvents = aggregateRoot.DomainEvents;
+                    foreach (var domainEvent in domainEvents)
+                        EventBus?.SendAsync(domainEvent);
                 }
             }
         }

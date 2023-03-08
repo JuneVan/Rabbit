@@ -13,10 +13,9 @@
             _signal = signal;
             _logger = logger;
         }
-        public async Task SendAsync<TEvent>(TEvent @event) where TEvent : IEvent, new()
+        public async Task SendAsync<TEvent>(TEvent @event) where TEvent : IEvent
         {
-            _logger.LogDebug(message: $"发布事件`{@event.GetType()}`-`{@event.GetType().Name}`。");
-
+            _logger.LogDebug(message: $"发布事件`{@event.GetType()}`-`{@event.GetType().Name}`。"); 
             await _mediator.Publish(@event, _signal.CancellationToken);
         }
 
