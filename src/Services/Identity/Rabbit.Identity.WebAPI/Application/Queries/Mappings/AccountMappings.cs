@@ -1,8 +1,8 @@
 ﻿namespace Rabbit.Identity.WebAPI.Application.Queries.Mappings
 {
-    public class AccountMappingProfile : Profile
+    public class AccountMappings : Profile
     {
-        public AccountMappingProfile()
+        public AccountMappings()
         {
             CreateMap<User, ProfileModel>();
         }

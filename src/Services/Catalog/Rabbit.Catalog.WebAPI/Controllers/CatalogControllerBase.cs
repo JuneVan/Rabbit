@@ -1,7 +1,6 @@
 namespace Rabbit.Catalog.WebAPI.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
+    [ApiController] 
     public abstract class CatalogControllerBase : ControllerBase
     {
         public CatalogControllerBase(IServiceProvider serviceProvider)

@@ -13,11 +13,11 @@
         /// 所属分类
         /// </summary>
         public int CategoryId { get; private set; }
-         
-        private List<TemplateGroup> _groups;
+
+        private List<TemplateGroup> _groups = new();
         public IReadOnlyCollection<TemplateGroup> Groups => _groups;
 
-        private List<TemplateGroupItem> _items;
+        private List<TemplateGroupItem> _items = new();
         public IReadOnlyCollection<TemplateGroupItem> Items => _items;
 
         public Template(string name, int categoryId)

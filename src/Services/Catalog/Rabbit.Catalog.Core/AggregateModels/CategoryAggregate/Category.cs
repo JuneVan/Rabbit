@@ -18,8 +18,8 @@
         /// </summary>
         public Category Parent { get; private set; }
 
-        
-        private List<Category> _children;
+
+        private List<Category> _children = new();
         /// <summary>
         /// 下级分类集合
         /// </summary>
@@ -28,10 +28,9 @@
         /// 排序
         /// </summary>
         public int DisplayOrder { get; private set; }
-        public Category(string name, int displayOrder, Category parent = null)
+        public Category(string name, int displayOrder)
         {
             SetName(name);
-            SetParent(parent);
             SetDisplayOrder(displayOrder);
         }
         public void SetName(string name)

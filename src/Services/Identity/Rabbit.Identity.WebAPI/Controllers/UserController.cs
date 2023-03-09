@@ -72,7 +72,7 @@ namespace Rabbit.Identity.WebAPI.Controllers
         /// <param name="query"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<PagedResultDto<UserListModel>> GetAll([FromQuery] GetUsersQuery query)
+        public async Task<PagedResultDto<UserListModel>> GetAll([FromQuery] GetUsersInput query)
         {
             return await _querier.GetUsersAsync(query);
         }

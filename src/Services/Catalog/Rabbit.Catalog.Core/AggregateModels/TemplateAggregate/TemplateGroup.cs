@@ -18,7 +18,7 @@
         /// </summary>
         public int TemplateId { get; private set; }
 
-        private List<TemplateGroupItem> _items;
+        private List<TemplateGroupItem> _items = new();
         public IReadOnlyCollection<TemplateGroupItem> Items => _items;
 
         public TemplateGroup(string groupName, int displayOrder)
@@ -35,6 +35,6 @@
         {
             DisplayOrder = displayOrder;
         }
-       
+
     }
 }

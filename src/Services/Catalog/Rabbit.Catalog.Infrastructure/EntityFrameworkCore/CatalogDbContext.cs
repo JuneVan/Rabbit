@@ -11,7 +11,7 @@ namespace Rabbit.Catalog.Infrastructure.EntityFrameworkCore
 
         }
         protected override string Schema => InfrastructureDefaults.CatalogDbSchema;
-        //public DbSet<Category> Categories { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Attribute> Attributes { get; set; }
         public DbSet<AttributeOption> AttributeOptions { get; set; }

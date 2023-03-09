@@ -95,7 +95,10 @@
         // 添加MediatR 
         private static void AddMediatR(IServiceCollection services)
         {
-            services.AddMediatR(typeof(Program).Assembly);
+            services.AddMediatR(configure =>
+            {
+                configure.RegisterServicesFromAssembly(typeof(Program).Assembly);
+            });
         }
 
         private static void AddJWTAuthentication(IServiceCollection services, IConfiguration configuration)

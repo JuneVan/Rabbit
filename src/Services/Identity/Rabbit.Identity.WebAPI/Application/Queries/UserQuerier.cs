@@ -3,7 +3,7 @@
     public interface IUserQuerier
     {
         Task<UserModel> GetUserByIdAsync(int id);
-        Task<PagedResultDto<UserListModel>> GetUsersAsync(GetUsersQuery query);
+        Task<PagedResultDto<UserListModel>> GetUsersAsync(GetUsersInput query);
         Task<IEnumerable<ComboboxItemDto>> GetUserItemsAsync();
     }
     public class UserQuerier : IUserQuerier
@@ -33,17 +33,17 @@
             return users;
         }
 
-        public async Task<PagedResultDto<UserListModel>> GetUsersAsync(GetUsersQuery request)
+        public async Task<PagedResultDto<UserListModel>> GetUsersAsync(GetUsersInput input)
         {
 
             var query = _userRepository.GetAll();
-            if (!request.Username.IsNullOrEmpty())
-                query = query.Where(w => w.Username.Contains(request.Username));
+            if (!input.Username.IsNullOrEmpty())
+                query = query.Where(w => w.Username.Contains(input.Username));
 
             var totalCount = await query.CountAsync(_signal.CancellationToken);
-            var users = await query.OrderBy(request.Sorting)
-                    .Skip((request.PageIndex - 1) * request.PageSize)
-            .Take(request.PageSize)
+            var users = await query.OrderBy(input.Sorting)
+                    .Skip((input.PageIndex - 1) * input.PageSize)
+            .Take(input.PageSize)
                    .ToListAsync(_signal.CancellationToken);
 
             return new PagedResultDto<UserListModel>(totalCount, _mapper.Map<List<UserListModel>>(users));

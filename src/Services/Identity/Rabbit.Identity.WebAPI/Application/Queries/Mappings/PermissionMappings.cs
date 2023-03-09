@@ -1,8 +1,8 @@
 ﻿namespace Rabbit.Identity.WebAPI.Application.Queries.Mappings
 {
-    public class PermissionMappingProfile : Profile
+    public class PermissionMappings : Profile
     {
-        public PermissionMappingProfile()
+        public PermissionMappings()
         {
             CreateMap<Permission, PermissionModel>();
         }

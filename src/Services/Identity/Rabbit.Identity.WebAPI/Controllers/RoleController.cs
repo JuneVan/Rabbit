@@ -65,7 +65,7 @@ namespace Rabbit.Identity.WebAPI.Controllers
         /// <param name="query"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<PagedResultDto<RoleListModel>> GetAll([FromQuery] GetRolesQuery query)
+        public async Task<PagedResultDto<RoleListModel>> GetAll([FromQuery] GetRolesInput query)
         {
             return await _querier.GetRolesAsync(query);
         }

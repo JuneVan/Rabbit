@@ -10,7 +10,7 @@
         public int DisplayOrder { get; private set; }
         public AttributeDisplayType DisplayType { get; private set; }
 
-        private List<AttributeOption> _options;
+        private List<AttributeOption> _options = new();
         public IReadOnlyList<AttributeOption> Options => _options;
 
         public Attribute(string name, bool isRequired, int displayOrder, AttributeDisplayType displayType)

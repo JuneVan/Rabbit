@@ -3,7 +3,7 @@
     public interface IRoleQuerier
     {
         Task<RoleModel> GetRoleByIdAsync(int id);
-        Task<PagedResultDto<RoleListModel>> GetRolesAsync(GetRolesQuery query);
+        Task<PagedResultDto<RoleListModel>> GetRolesAsync(GetRolesInput query);
         Task<IEnumerable<ComboboxItemDto>> GetRoleItemsAsync();
     }
     public class RoleQuerier : IRoleQuerier
@@ -38,16 +38,16 @@
             return roleItems;
         }
 
-        public async Task<PagedResultDto<RoleListModel>> GetRolesAsync(GetRolesQuery request)
+        public async Task<PagedResultDto<RoleListModel>> GetRolesAsync(GetRolesInput input)
         {
             var query = _roleRepository.GetAll();
-            if (!request.Name.IsNullOrEmpty())
-                query = query.Where(w => w.Name.Contains(request.Name));
+            if (!input.Name.IsNullOrEmpty())
+                query = query.Where(w => w.Name.Contains(input.Name));
 
             var totalCount = await query.CountAsync(_signal.CancellationToken);
-            var roles = await query.OrderBy(request.Sorting)
-                    .Skip((request.PageIndex - 1) * request.PageSize)
-            .Take(request.PageSize)
+            var roles = await query.OrderBy(input.Sorting)
+                    .Skip((input.PageIndex - 1) * input.PageSize)
+            .Take(input.PageSize)
                    .ToListAsync(_signal.CancellationToken);
 
             return new PagedResultDto<RoleListModel>(totalCount, _mapper.Map<List<RoleListModel>>(roles));

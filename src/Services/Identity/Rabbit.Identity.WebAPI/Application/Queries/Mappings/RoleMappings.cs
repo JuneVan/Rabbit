@@ -1,8 +1,8 @@
 ﻿namespace Rabbit.Identity.WebAPI.Application.Queries.Mappings
 {
-    public class RoleMappingProfile : Profile
+    public class RoleMappings : Profile
     {
-        public RoleMappingProfile()
+        public RoleMappings()
         {
             CreateMap<Role, RoleModel>()
                  .ForMember(option => option.PermissionIds,

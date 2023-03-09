@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Extensions.DependencyInjection
+﻿using Rabbit.Catalog.WebAPI.Application.Queries;
+
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class IServiceCollectionExtensions
     {
@@ -95,7 +97,10 @@
         // 添加MediatR 
         private static void AddMediatR(IServiceCollection services)
         {
-            services.AddMediatR(typeof(Program).Assembly);
+            services.AddMediatR(configure =>
+            {
+                configure.RegisterServicesFromAssembly(typeof(Program).Assembly);
+            });
         }
 
         private static void AddJWTAuthentication(IServiceCollection services, IConfiguration configuration)
@@ -138,7 +143,7 @@
             {
                 configure.ConnectionString = configuration.GetConnectionString("RedisDb");
             });
-
+            services.AddScoped<ICategoryQuerier,CategoryQuerier>();
         }
     }
 }

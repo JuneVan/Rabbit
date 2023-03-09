@@ -7,7 +7,7 @@
             base.Configure(builder);
             builder.ToTable("Categories");
 
-            builder.HasMany(x => x.Children).WithOne().HasForeignKey(x => x.ParentId);
+            builder.HasOne(x => x.Parent).WithMany(x => x.Children).HasForeignKey(x => x.ParentId);
         }
     }
 }
