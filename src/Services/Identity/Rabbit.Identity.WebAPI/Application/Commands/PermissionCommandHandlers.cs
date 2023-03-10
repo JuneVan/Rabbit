@@ -45,12 +45,12 @@
         }
         public async Task Handle(DeletePermissionCommand request, CancellationToken cancellationToken)
         {
-            var permission = await PermissionRepository.FirstOrDefaultAsync(request.Id);
+            var permission = await _permissionRepository.FirstOrDefaultAsync(request.Id);
             if (permission == null)
                 throw new EntityNotFoundException(typeof(Permission), request.Id);
 
-            await PermissionRepository.DeleteAsync(permission);
-            await PermissionRepository.UnitOfWork.CommitAsync();
+            await _permissionRepository.DeleteAsync(permission);
+            await _permissionRepository.UnitOfWork.CommitAsync();
         }
     }
 }

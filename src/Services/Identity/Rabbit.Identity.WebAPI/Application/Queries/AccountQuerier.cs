@@ -9,23 +9,20 @@
     {
         private readonly IMapper _mapper;
         private readonly IRepository<User> _userRepository;
-        private readonly IRepository<UserRole> _userRoleRepository;
-        private readonly IRepository<Role> _roleRepository;
+        private readonly IRepository<UserRole> _userRoleRepository; 
         private readonly IRepository<RolePermission> _rolePermissionRepository;
         private readonly IRepository<Permission> _permissionRepository;
         private readonly IThreadSignal _signal;
         public AccountQuerier(
             IRepository<User> userRepository,
             IMapper mapper,
-            IRepository<UserRole> userRoleRepository,
-            IRepository<Role> roleRepository,
+            IRepository<UserRole> userRoleRepository, 
             IRepository<RolePermission> rolePermissionRepository,
             IRepository<Permission> permissionRepository,
             IThreadSignal signal)
         {
             _userRepository = userRepository;
-            _userRoleRepository = userRoleRepository;
-            _roleRepository = roleRepository;
+            _userRoleRepository = userRoleRepository; 
             _rolePermissionRepository = rolePermissionRepository;
             _permissionRepository = permissionRepository;
             _mapper = mapper;
