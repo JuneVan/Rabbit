@@ -2,7 +2,7 @@
 
 namespace Rabbit.Catalog.Infrastructure.Caching.Synchronizers
 {
-    internal class CatagoryCacheSynchronizer : INotificationHandler<EntityChangedEvent<Category>>
+    internal class CatagoryCacheSynchronizer : INotificationHandler<AggregateRootChangedEvent<Category>>
     {
         private readonly IDistributedCache _distributedCache;
         public CatagoryCacheSynchronizer(IDistributedCache distributedCache)
@@ -10,7 +10,7 @@ namespace Rabbit.Catalog.Infrastructure.Caching.Synchronizers
             _distributedCache = distributedCache;
         }
 
-        public async Task Handle(EntityChangedEvent<Category> notification, CancellationToken cancellationToken)
+        public async Task Handle(AggregateRootChangedEvent<Category> notification, CancellationToken cancellationToken)
         {
             await _distributedCache.RemoveAsync("aa");
         }
