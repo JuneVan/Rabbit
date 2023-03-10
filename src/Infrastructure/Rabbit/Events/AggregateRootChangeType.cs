@@ -1,6 +1,6 @@
 ﻿namespace Rabbit.Events
 {
-    public enum EntityChangeType
+    public enum AggregateRootChangeType
     {
         Created,
         Updated,

@@ -9,12 +9,12 @@
         public EfCoreDbContext(DbContextOptions options, IServiceProvider serviceProvider) : base(options)
         {
             Identifier = serviceProvider.GetService<IIdentifier>();
-            EntityEventHelper = serviceProvider.GetService<IEntityEventHelper>();
+            EventHelper = serviceProvider.GetService<IAggregateRootChangedEventHandler>();
             EventBus = serviceProvider.GetService<IEventBus>();
         }
         protected virtual string Schema { get; }
         protected virtual IIdentifier Identifier { get; }
-        protected virtual IEntityEventHelper EntityEventHelper { get; private set; }
+        protected virtual IAggregateRootChangedEventHandler EventHelper { get; private set; }
         protected virtual IEventBus EventBus { get; private set; }
         public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
@@ -55,21 +55,22 @@
         {
             foreach (EntityEntry entry in ChangeTracker.Entries().ToList())
             {
-                EntityEventHelper?.SendEntityChangeEventAsync(entry.Entity);
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        EntityEventHelper?.SendEntityCreatedEventAsync(entry.Entity);
-                        break;
-                    case EntityState.Modified:
-                        EntityEventHelper?.SendEntityUpdatedEventAsync(entry.Entity);
-                        break;
-                    case EntityState.Deleted:
-                        EntityEventHelper?.SendEntityDeletedEventAsync(entry.Entity);
-                        break;
-                }
                 if (entry.Entity is IAggregateRoot aggregateRoot)
                 {
+                    EventHelper?.SendChangeEventAsync(entry.Entity);
+                    switch (entry.State)
+                    {
+                        case EntityState.Added:
+                            EventHelper?.SendCreatedEventAsync(entry.Entity);
+                            break;
+                        case EntityState.Modified:
+                            EventHelper?.SendUpdatedEventAsync(entry.Entity);
+                            break;
+                        case EntityState.Deleted:
+                            EventHelper?.SendDeletedEventAsync(entry.Entity);
+                            break;
+                    }
+
                     var domainEvents = aggregateRoot.DomainEvents;
                     foreach (var domainEvent in domainEvents)
                         EventBus?.SendAsync(domainEvent);

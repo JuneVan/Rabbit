@@ -1,13 +1,13 @@
 ﻿namespace Rabbit.Events
 {
-    public class MediatREntityEventHelper : EntityEventHelperBase
+    public class MediatRAggregateRootEventHelper : AggregateRootChangedEventHandlerBase
     {
         private readonly AsyncContinueMediator _mediator;
         private readonly IThreadSignal _signal;
         private readonly ILogger _logger;
-        public MediatREntityEventHelper(AsyncContinueMediator mediator,
+        public MediatRAggregateRootEventHelper(AsyncContinueMediator mediator,
             IThreadSignal signal,
-            ILogger<MediatREntityEventHelper> logger)
+            ILogger<MediatRAggregateRootEventHelper> logger)
         {
             _mediator = mediator;
             _signal = signal;
