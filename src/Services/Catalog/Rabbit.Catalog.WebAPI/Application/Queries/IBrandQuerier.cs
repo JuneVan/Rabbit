@@ -4,5 +4,6 @@
     {
         Task<BrandModel> GetBrandByIdAsync(int id);
         Task<PagedResultDto<BrandListModel>> GetBrandsAsync(GetBrandsInput input);
+        Task<List<ComboboxItemDto>> GetBrandItemsAsync();
     }
 }

@@ -41,7 +41,11 @@
 
         public async Task Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
         {
-            var category = await _categoryRepository.FirstOrDefaultAsync(request.Id); 
+            var category = await _categoryRepository.FirstOrDefaultAsync(request.Id);
+
+            // TODO:检查商品引用
+            // TODO:检查分类引用
+
             await _categoryRepository.DeleteAsync(category);
             await _categoryRepository.UnitOfWork.CommitAsync();
         }

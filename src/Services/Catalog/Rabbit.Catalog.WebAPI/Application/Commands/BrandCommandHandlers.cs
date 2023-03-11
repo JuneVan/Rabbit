@@ -30,6 +30,9 @@
         {
             var brand = await _brandRepository.FirstOrDefaultAsync(request.Id);
             if (brand == null) throw new EntityNotFoundException(typeof(Brand), request.Id);
+
+            // TODO:检查商品引用
+
             await _brandRepository.DeleteAsync(brand);
             await _brandRepository.UnitOfWork.CommitAsync();
         }

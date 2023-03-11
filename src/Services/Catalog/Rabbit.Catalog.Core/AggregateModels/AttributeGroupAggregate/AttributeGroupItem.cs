@@ -1,6 +1,6 @@
-﻿namespace Rabbit.Catalog.AggregateModels.TemplateAggregate
+﻿namespace Rabbit.Catalog.AggregateModels.AttributeGroupAggregate
 {
-    public class TemplateGroupItem : Entity
+    public class AttributeGroupItem : Entity
     {
         /// <summary>
         /// 属性Id
@@ -10,19 +10,24 @@
         /// <summary>
         /// 模板分组Id
         /// </summary>
-        public int GroupId { get; private set; }
+        public int AttributeGroupId { get; private set; }
         /// <summary>
-        /// 模板Id
+        /// 排序
         /// </summary>
-        public int TemplateId { get; private set; }
-        public TemplateGroupItem(int attributeId)
+        public int DisplayOrder { get; private set; }
+        public AttributeGroupItem(int attributeId, int displayOrder)
         {
             SetAttributeId(attributeId);
+            SetDisplayOrder(displayOrder);
         }
         public void SetAttributeId(int attributeId)
         {
             if (attributeId < 0) throw new ArgumentOutOfRangeException(nameof(attributeId), "属性Id无效。");
             AttributeId = attributeId;
+        }
+        public void SetDisplayOrder(int displayOrder)
+        {
+            DisplayOrder = displayOrder;
         }
     }
 }

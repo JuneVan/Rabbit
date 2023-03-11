@@ -32,17 +32,34 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("integer");
 
                     b.Property<short>("DisplayType")
                         .HasColumnType("smallint");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("IsRequired")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("IsSearch")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("UnitId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -65,13 +82,63 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AttributeId");
 
                     b.ToTable("AttributeOptions", "catalog_v1");
+                });
+
+            modelBuilder.Entity("Rabbit.Catalog.AggregateModels.AttributeGroupAggregate.AttributeGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasComment("Id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AttributeGroups", "catalog_v1");
+                });
+
+            modelBuilder.Entity("Rabbit.Catalog.AggregateModels.AttributeGroupAggregate.AttributeGroupItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasComment("Id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AttributeGroupId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AttributeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttributeGroupId", "AttributeId")
+                        .IsUnique();
+
+                    b.ToTable("AttributeGroupItems", "catalog_v1");
                 });
 
             modelBuilder.Entity("Rabbit.Catalog.AggregateModels.BrandAggregate.Brand", b =>
@@ -84,13 +151,19 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("Logo")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
                     b.HasKey("Id");
 
@@ -138,7 +211,9 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
                         .HasComment("最后更新人的用户Id");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
                     b.Property<int?>("ParentId")
                         .HasColumnType("integer");
@@ -150,7 +225,7 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
                     b.ToTable("Categories", "catalog_v1");
                 });
 
-            modelBuilder.Entity("Rabbit.Catalog.AggregateModels.TemplateAggregate.Template", b =>
+            modelBuilder.Entity("Rabbit.Catalog.AggregateModels.UnitAggregate.Unit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -159,67 +234,45 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasComment("创建时间");
+
+                    b.Property<int>("CreatorUserId")
+                        .HasColumnType("integer")
+                        .HasComment("创建人的用户Id");
+
+                    b.Property<DateTime?>("DeletedTime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasComment("删除时间");
+
+                    b.Property<int?>("DeleterUserId")
+                        .HasColumnType("integer")
+                        .HasComment("删除人的用户Id");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasComment("是否已被删除");
+
+                    b.Property<DateTime?>("LastModifiedTime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasComment("最后更新时间");
+
+                    b.Property<int?>("LastModifierUserId")
+                        .HasColumnType("integer")
+                        .HasComment("最后更新人的用户Id");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Templates", "catalog_v1");
-                });
-
-            modelBuilder.Entity("Rabbit.Catalog.AggregateModels.TemplateAggregate.TemplateGroup", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasComment("Id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("DisplayOrder")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("GroupName")
-                        .HasColumnType("text");
-
-                    b.Property<int>("TemplateId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TemplateId");
-
-                    b.ToTable("TemplateGroups", "catalog_v1");
-                });
-
-            modelBuilder.Entity("Rabbit.Catalog.AggregateModels.TemplateAggregate.TemplateGroupItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasComment("Id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AttributeId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("GroupId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TemplateId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex("TemplateId");
-
-                    b.ToTable("TemplateGroupItems", "catalog_v1");
+                    b.ToTable("Units", "catalog_v1");
                 });
 
             modelBuilder.Entity("Rabbit.Catalog.AggregateModels.AttributeAggregate.AttributeOption", b =>
@@ -227,6 +280,15 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
                     b.HasOne("Rabbit.Catalog.AggregateModels.AttributeAggregate.Attribute", null)
                         .WithMany("Options")
                         .HasForeignKey("AttributeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Rabbit.Catalog.AggregateModels.AttributeGroupAggregate.AttributeGroupItem", b =>
+                {
+                    b.HasOne("Rabbit.Catalog.AggregateModels.AttributeGroupAggregate.AttributeGroup", null)
+                        .WithMany("Items")
+                        .HasForeignKey("AttributeGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -240,50 +302,19 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("Rabbit.Catalog.AggregateModels.TemplateAggregate.TemplateGroup", b =>
-                {
-                    b.HasOne("Rabbit.Catalog.AggregateModels.TemplateAggregate.Template", null)
-                        .WithMany("Groups")
-                        .HasForeignKey("TemplateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Rabbit.Catalog.AggregateModels.TemplateAggregate.TemplateGroupItem", b =>
-                {
-                    b.HasOne("Rabbit.Catalog.AggregateModels.TemplateAggregate.TemplateGroup", null)
-                        .WithMany("Items")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Rabbit.Catalog.AggregateModels.TemplateAggregate.Template", null)
-                        .WithMany("Items")
-                        .HasForeignKey("TemplateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Rabbit.Catalog.AggregateModels.AttributeAggregate.Attribute", b =>
                 {
                     b.Navigation("Options");
                 });
 
+            modelBuilder.Entity("Rabbit.Catalog.AggregateModels.AttributeGroupAggregate.AttributeGroup", b =>
+                {
+                    b.Navigation("Items");
+                });
+
             modelBuilder.Entity("Rabbit.Catalog.AggregateModels.CategoryAggregate.Category", b =>
                 {
                     b.Navigation("Children");
-                });
-
-            modelBuilder.Entity("Rabbit.Catalog.AggregateModels.TemplateAggregate.Template", b =>
-                {
-                    b.Navigation("Groups");
-
-                    b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("Rabbit.Catalog.AggregateModels.TemplateAggregate.TemplateGroup", b =>
-                {
-                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

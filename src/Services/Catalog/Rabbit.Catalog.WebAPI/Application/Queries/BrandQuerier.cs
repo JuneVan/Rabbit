@@ -1,6 +1,4 @@
-﻿using Rabbit.Threading;
-
-namespace Rabbit.Catalog.WebAPI.Application.Queries
+﻿namespace Rabbit.Catalog.WebAPI.Application.Queries
 {
     public class BrandQuerier : IBrandQuerier
     {
@@ -19,6 +17,16 @@ namespace Rabbit.Catalog.WebAPI.Application.Queries
             var brand = await _brandRepository.FirstOrDefaultAsync(id);
             return _mapper.Map<BrandModel>(brand);
         }
+
+
+        public async Task<List<ComboboxItemDto>> GetBrandItemsAsync()
+        {
+            var unitItems = await (from a in _brandRepository.GetAll()
+                                   select new ComboboxItemDto(a.Id, a.Name))
+                                 .ToListAsync(_signal.CancellationToken);
+            return unitItems;
+        }
+
 
         public async Task<PagedResultDto<BrandListModel>> GetBrandsAsync(GetBrandsInput input)
         {

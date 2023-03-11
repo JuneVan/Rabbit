@@ -43,6 +43,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Identity", "src\Serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rabbit.Identity.Infrastructure", "src\Services\Identity\Rabbit.Identity.Infrastructure\Rabbit.Identity.Infrastructure.csproj", "{B8D51504-FA0B-4B59-8EDB-462B0C0894FA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{B12364F1-3B19-4369-B19D-BB2C82FCE663}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,7 @@ Global
 		{B55EABA4-08F7-47C3-9EF3-A3981CD6C10C} = {CA1DA039-1370-4A57-9670-F4F07D521D9C}
 		{DA64933B-2103-4DDC-8610-3F2FE8CF108D} = {6F9D642A-6712-40B2-B88C-953FA622DC0B}
 		{B8D51504-FA0B-4B59-8EDB-462B0C0894FA} = {6F9D642A-6712-40B2-B88C-953FA622DC0B}
+		{B12364F1-3B19-4369-B19D-BB2C82FCE663} = {D7618E54-1394-48FB-9567-84201E1ACC0D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6718F1A-8F97-4628-9AFE-6AD8CEF9127F}

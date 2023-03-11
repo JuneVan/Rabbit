@@ -8,7 +8,7 @@ namespace Rabbit.Catalog.Infrastructure.EntityFrameworkCore.EntityTypeConfigurat
         {
             base.Configure(builder);
             builder.ToTable("Attributes");
-
+            builder.Property(x => x.Name).HasMaxLength(128).IsRequired();
             builder.HasMany(x => x.Options).WithOne().HasForeignKey(x => x.AttributeId);
         }
     }

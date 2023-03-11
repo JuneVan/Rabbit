@@ -4,5 +4,6 @@
     {
         Task<CategoryModel> GetCategoryByIdAsync(int id);
         Task<PagedResultDto<CategoryListModel>> GetCategoriesAsync(GetCategoriesInput input);
+        Task<List<TreeItemDto>> GetCategoryTreeItemsAsync();
     }
 }

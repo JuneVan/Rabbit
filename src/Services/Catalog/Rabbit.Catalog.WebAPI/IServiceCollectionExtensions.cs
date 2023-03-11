@@ -144,6 +144,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 configure.ConnectionString = configuration.GetConnectionString("RedisDb");
             });
             services.AddScoped<ICategoryQuerier,CategoryQuerier>();
+            services.AddScoped<IAttributeGroupQuerier, AttributeGroupQuerier>();
         }
     }
 }

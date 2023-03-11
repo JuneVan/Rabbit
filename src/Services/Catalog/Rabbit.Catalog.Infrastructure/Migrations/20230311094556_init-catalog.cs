@@ -14,16 +14,36 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
                 name: "catalog_v1");
 
             migrationBuilder.CreateTable(
+                name: "AttributeGroups",
+                schema: "catalog_v1",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Id")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    CategoryId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AttributeGroups", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Attributes",
                 schema: "catalog_v1",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false, comment: "Id")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     IsRequired = table.Column<bool>(type: "boolean", nullable: false),
                     DisplayOrder = table.Column<int>(type: "integer", nullable: false),
-                    DisplayType = table.Column<short>(type: "smallint", nullable: false)
+                    Type = table.Column<int>(type: "integer", nullable: false),
+                    DisplayType = table.Column<short>(type: "smallint", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    IsSearch = table.Column<bool>(type: "boolean", nullable: false),
+                    UnitId = table.Column<int>(type: "integer", nullable: true),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -37,9 +57,9 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false, comment: "Id")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    Logo = table.Column<string>(type: "text", nullable: true)
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Description = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
+                    Logo = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,7 +73,7 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false, comment: "Id")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     ParentId = table.Column<int>(type: "integer", nullable: true),
                     DisplayOrder = table.Column<int>(type: "integer", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, comment: "创建时间"),
@@ -76,18 +96,48 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Templates",
+                name: "Units",
                 schema: "catalog_v1",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false, comment: "Id")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    CategoryId = table.Column<int>(type: "integer", nullable: false)
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, comment: "创建时间"),
+                    CreatorUserId = table.Column<int>(type: "integer", nullable: false, comment: "创建人的用户Id"),
+                    LastModifiedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, comment: "最后更新时间"),
+                    LastModifierUserId = table.Column<int>(type: "integer", nullable: true, comment: "最后更新人的用户Id"),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, comment: "是否已被删除"),
+                    DeleterUserId = table.Column<int>(type: "integer", nullable: true, comment: "删除人的用户Id"),
+                    DeletedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, comment: "删除时间")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Templates", x => x.Id);
+                    table.PrimaryKey("PK_Units", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AttributeGroupItems",
+                schema: "catalog_v1",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Id")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    AttributeId = table.Column<int>(type: "integer", nullable: false),
+                    AttributeGroupId = table.Column<int>(type: "integer", nullable: false),
+                    DisplayOrder = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AttributeGroupItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AttributeGroupItems_AttributeGroups_AttributeGroupId",
+                        column: x => x.AttributeGroupId,
+                        principalSchema: "catalog_v1",
+                        principalTable: "AttributeGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -97,7 +147,7 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false, comment: "Id")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     DisplayOrder = table.Column<int>(type: "integer", nullable: false),
                     AttributeId = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -113,58 +163,12 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "TemplateGroups",
+            migrationBuilder.CreateIndex(
+                name: "IX_AttributeGroupItems_AttributeGroupId_AttributeId",
                 schema: "catalog_v1",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Id")
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    GroupName = table.Column<string>(type: "text", nullable: true),
-                    DisplayOrder = table.Column<int>(type: "integer", nullable: false),
-                    TemplateId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TemplateGroups", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TemplateGroups_Templates_TemplateId",
-                        column: x => x.TemplateId,
-                        principalSchema: "catalog_v1",
-                        principalTable: "Templates",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TemplateGroupItems",
-                schema: "catalog_v1",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Id")
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    AttributeId = table.Column<int>(type: "integer", nullable: false),
-                    GroupId = table.Column<int>(type: "integer", nullable: false),
-                    TemplateId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TemplateGroupItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TemplateGroupItems_TemplateGroups_GroupId",
-                        column: x => x.GroupId,
-                        principalSchema: "catalog_v1",
-                        principalTable: "TemplateGroups",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TemplateGroupItems_Templates_TemplateId",
-                        column: x => x.TemplateId,
-                        principalSchema: "catalog_v1",
-                        principalTable: "Templates",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                table: "AttributeGroupItems",
+                columns: new[] { "AttributeGroupId", "AttributeId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AttributeOptions_AttributeId",
@@ -177,28 +181,14 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
                 schema: "catalog_v1",
                 table: "Categories",
                 column: "ParentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TemplateGroupItems_GroupId",
-                schema: "catalog_v1",
-                table: "TemplateGroupItems",
-                column: "GroupId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TemplateGroupItems_TemplateId",
-                schema: "catalog_v1",
-                table: "TemplateGroupItems",
-                column: "TemplateId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TemplateGroups_TemplateId",
-                schema: "catalog_v1",
-                table: "TemplateGroups",
-                column: "TemplateId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AttributeGroupItems",
+                schema: "catalog_v1");
+
             migrationBuilder.DropTable(
                 name: "AttributeOptions",
                 schema: "catalog_v1");
@@ -212,19 +202,15 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
                 schema: "catalog_v1");
 
             migrationBuilder.DropTable(
-                name: "TemplateGroupItems",
+                name: "Units",
+                schema: "catalog_v1");
+
+            migrationBuilder.DropTable(
+                name: "AttributeGroups",
                 schema: "catalog_v1");
 
             migrationBuilder.DropTable(
                 name: "Attributes",
-                schema: "catalog_v1");
-
-            migrationBuilder.DropTable(
-                name: "TemplateGroups",
-                schema: "catalog_v1");
-
-            migrationBuilder.DropTable(
-                name: "Templates",
                 schema: "catalog_v1");
         }
     }
