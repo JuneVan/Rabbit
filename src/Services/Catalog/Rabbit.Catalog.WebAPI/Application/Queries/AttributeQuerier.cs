@@ -7,26 +7,23 @@ namespace Rabbit.Catalog.WebAPI.Application.Queries
         private readonly IRepository<Attribute> _attributeRepository;
         private readonly IMapper _mapper;
         private readonly IThreadSignal _signal;
-        public AttributeQuerier(IRepository<Attribute> attributeRepository, IMapper mapper, IThreadSignal  signal)
+        public AttributeQuerier(IRepository<Attribute> attributeRepository, IMapper mapper, IThreadSignal signal)
         {
             _attributeRepository = attributeRepository;
             _mapper = mapper;
             _signal = signal;
         }
-        public async Task<BasicAttributeModel> GetBasicAttributeByIdAsync(int id)
+        public async Task<AttributeModel> GetAttributeByIdAsync(int id)
         {
             var attribute = await _attributeRepository.IncludingFirstOrDefaultAsync(id, x => x.Options);
             if (attribute == null)
                 throw new EntityNotFoundException(typeof(Attribute), id);
-            return _mapper.Map<BasicAttributeModel>(attribute);
+            if (attribute.AttributeType == AttributeType.Basic)
+                return _mapper.Map<BasicAttributeModel>(attribute);
+            else
+                return _mapper.Map<SalesAttributeModel>(attribute);
         }
-        public async Task<SalesAttributeModel> GetSalesAttributeByIdAsync(int id)
-        {
-            var attribute = await _attributeRepository.IncludingFirstOrDefaultAsync(id, x => x.Options);
-            if (attribute == null)
-                throw new EntityNotFoundException(typeof(Attribute), id);
-            return _mapper.Map<SalesAttributeModel>(attribute);
-        }
+       
         public async Task<PagedResultDto<AttributeListModel>> GetAttributesAsync(GetAttributesInput input)
         {
             var query = _attributeRepository.GetAll();

@@ -18,9 +18,9 @@
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("Get/{id}")]
-        public async Task<BasicAttributeModel> GetByIdAsync(int id)
+        public async Task<AttributeModel> GetByIdAsync(int id)
         {
-            return await _attributeQuerier.GetBasicAttributeByIdAsync(id);
+            return await _attributeQuerier.GetAttributeByIdAsync(id);
         }
         /// <summary>
         /// 获取属性记录列表
@@ -34,45 +34,27 @@
         }
 
         /// <summary>
-        /// 创建一条基础属性记录
+        /// 创建一条属性记录
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [HttpPost("CreateBasic")]
-        public async Task<int> CreateBasicAsync([FromBody] CreateBasicAttributeCommand command)
+        [HttpPost("Create")]
+        public async Task<int> CreateAsync([FromBody] CreateAttributeCommand command)
         {
             return await Mediator.Send(command);
         }
+       
         /// <summary>
-        /// 创建一条销售属性记录
+        /// 更新一条属性记录
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [HttpPost("CreateSales")]
-        public async Task<int> CreateSalesAsync([FromBody] CreateSalesAttributeCommand command)
-        {
-            return await Mediator.Send(command);
-        }
-        /// <summary>
-        /// 更新一条基础属性记录
-        /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
-        [HttpPut("UpdateBasic")]
-        public async Task UpdateBasicAsync([FromBody] UpdateBasicAttributeCommand command)
+        [HttpPut("Update")]
+        public async Task UpdateAsync([FromBody] UpdateAttributeCommand command)
         {
             await Mediator.Send(command);
         }
-        /// <summary>
-        /// 更新一条销售属性记录
-        /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
-        [HttpPut("UpdateSales")]
-        public async Task UpdateSalesAsync([FromBody] UpdateSalesAttributeCommand command)
-        {
-            await Mediator.Send(command);
-        }
+        
         /// <summary>
         /// 删除一条属性记录
         /// </summary>
