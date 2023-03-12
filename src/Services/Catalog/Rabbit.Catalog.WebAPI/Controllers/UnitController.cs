@@ -3,8 +3,7 @@
     /// <summary>
     /// 计量单位管理
     /// </summary>
-    [Route("api/[controller]")]
-    [ApiController]
+    [Route("v1/[controller]")]
     public class UnitController : CatalogControllerBase
     {
         private readonly IUnitQuerier _unitQuerier;
@@ -29,8 +28,8 @@
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpGet("GetUnits")]
-        public async Task<PagedResultDto<UnitListModel>> GetUnitsAsync(GetUnitsInput input)
+        [HttpGet("GetAll")]
+        public async Task<PagedResultDto<UnitListModel>> GetAllAsync(GetUnitsInput input)
         {
             return await _unitQuerier.GetUnitsAsync(input);
         }

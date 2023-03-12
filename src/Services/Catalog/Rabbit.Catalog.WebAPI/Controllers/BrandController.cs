@@ -28,8 +28,8 @@
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpGet("GetBrands")]
-        public async Task<PagedResultDto<BrandListModel>> GetBrandsAsync(GetBrandsInput input)
+        [HttpGet("GetAll")]
+        public async Task<PagedResultDto<BrandListModel>> GetAllAsync(GetBrandsInput input)
         {
             return await _brandQuerier.GetBrandsAsync(input);
         }

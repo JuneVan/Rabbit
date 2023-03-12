@@ -1,5 +1,4 @@
-﻿using Rabbit.Threading;
-using Attribute = Rabbit.Catalog.AggregateModels.AttributeAggregate.Attribute;
+﻿using Attribute = Rabbit.Catalog.AggregateModels.AttributeAggregate.Attribute;
 
 namespace Rabbit.Catalog.WebAPI.Application.Queries
 {
@@ -14,14 +13,20 @@ namespace Rabbit.Catalog.WebAPI.Application.Queries
             _mapper = mapper;
             _signal = signal;
         }
-        public async Task<AttributeModel> GetAttributeByIdAsync(int id)
+        public async Task<BasicAttributeModel> GetBasicAttributeByIdAsync(int id)
         {
             var attribute = await _attributeRepository.IncludingFirstOrDefaultAsync(id, x => x.Options);
             if (attribute == null)
                 throw new EntityNotFoundException(typeof(Attribute), id);
-            return _mapper.Map<AttributeModel>(attribute);
+            return _mapper.Map<BasicAttributeModel>(attribute);
         }
-
+        public async Task<SalesAttributeModel> GetSalesAttributeByIdAsync(int id)
+        {
+            var attribute = await _attributeRepository.IncludingFirstOrDefaultAsync(id, x => x.Options);
+            if (attribute == null)
+                throw new EntityNotFoundException(typeof(Attribute), id);
+            return _mapper.Map<SalesAttributeModel>(attribute);
+        }
         public async Task<PagedResultDto<AttributeListModel>> GetAttributesAsync(GetAttributesInput input)
         {
             var query = _attributeRepository.GetAll();

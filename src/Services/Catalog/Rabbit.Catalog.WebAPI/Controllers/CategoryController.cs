@@ -16,8 +16,8 @@
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpGet("GetCategories")]
-        public async Task<PagedResultDto<CategoryListModel>> GetCategoriesAsync([FromQuery] GetCategoriesInput input)
+        [HttpGet("GetAll")]
+        public async Task<PagedResultDto<CategoryListModel>> GetAllAsync([FromQuery] GetCategoriesInput input)
         {
             return await _categoryQuerier.GetCategoriesAsync(input);
         }

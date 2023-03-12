@@ -18,38 +18,58 @@
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("Get/{id}")]
-        public async Task<AttributeModel> GetByIdAsync(int id)
+        public async Task<BasicAttributeModel> GetByIdAsync(int id)
         {
-            return await _attributeQuerier.GetAttributeByIdAsync(id);
+            return await _attributeQuerier.GetBasicAttributeByIdAsync(id);
         }
         /// <summary>
         /// 获取属性记录列表
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpGet("GetAttributes")]
-        public async Task<PagedResultDto<AttributeListModel>> GetAttributesAsync(GetAttributesInput input)
+        [HttpGet("GetAll")]
+        public async Task<PagedResultDto<AttributeListModel>> GetAllAsync([FromQuery] GetAttributesInput input)
         {
             return await _attributeQuerier.GetAttributesAsync(input);
         }
-   
+
         /// <summary>
-        /// 创建一条属性记录
+        /// 创建一条基础属性记录
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [HttpPost("Create")]
-        public async Task<int> CreateAsync([FromBody] CreateAttributeCommand command)
+        [HttpPost("CreateBasic")]
+        public async Task<int> CreateBasicAsync([FromBody] CreateBasicAttributeCommand command)
         {
             return await Mediator.Send(command);
         }
         /// <summary>
-        /// 更新一条属性记录
+        /// 创建一条销售属性记录
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [HttpPut("Update")]
-        public async Task UpdateAsync([FromBody] UpdateAttributeCommand command)
+        [HttpPost("CreateSales")]
+        public async Task<int> CreateSalesAsync([FromBody] CreateSalesAttributeCommand command)
+        {
+            return await Mediator.Send(command);
+        }
+        /// <summary>
+        /// 更新一条基础属性记录
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut("UpdateBasic")]
+        public async Task UpdateBasicAsync([FromBody] UpdateBasicAttributeCommand command)
+        {
+            await Mediator.Send(command);
+        }
+        /// <summary>
+        /// 更新一条销售属性记录
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut("UpdateSales")]
+        public async Task UpdateSalesAsync([FromBody] UpdateSalesAttributeCommand command)
         {
             await Mediator.Send(command);
         }
@@ -59,7 +79,7 @@
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpDelete("Delete")]
-        public async Task DeleteAsync([FromBody] UpdateAttributeCommand command)
+        public async Task DeleteAsync([FromBody] DeleteAttributeCommand command)
         {
             await Mediator.Send(command);
         }

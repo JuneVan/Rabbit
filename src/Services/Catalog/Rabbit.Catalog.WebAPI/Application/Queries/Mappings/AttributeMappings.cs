@@ -6,7 +6,7 @@ namespace Rabbit.Catalog.WebAPI.Application.Queries.Mappings
     {
         public AttributeMappings()
         {
-            CreateMap<Attribute, AttributeModel>();
+            CreateMap<Attribute, BasicAttributeModel>();
             CreateMap<Attribute, AttributeListModel>();
         }
     }

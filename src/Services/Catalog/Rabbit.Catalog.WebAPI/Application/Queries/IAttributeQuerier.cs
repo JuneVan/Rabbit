@@ -2,7 +2,8 @@
 {
     public interface IAttributeQuerier
     {
-        Task<AttributeModel> GetAttributeByIdAsync(int id);
+        Task<BasicAttributeModel> GetBasicAttributeByIdAsync(int id);
+        Task<SalesAttributeModel> GetSalesAttributeByIdAsync(int id);
         Task<PagedResultDto<AttributeListModel>> GetAttributesAsync(GetAttributesInput input);
     }
 }

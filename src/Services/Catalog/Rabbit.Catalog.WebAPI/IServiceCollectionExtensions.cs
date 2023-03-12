@@ -145,6 +145,8 @@ namespace Microsoft.Extensions.DependencyInjection
             });
             services.AddScoped<ICategoryQuerier,CategoryQuerier>();
             services.AddScoped<IAttributeGroupQuerier, AttributeGroupQuerier>();
+            services.AddScoped<IUnitQuerier, UnitQuerier>();
+            services.AddScoped<IAttributeQuerier, AttributeQuerier>();
         }
     }
 }

@@ -3,23 +3,71 @@
     /// <summary>
     /// 属性
     /// </summary>
-    public class Attribute : Entity
+    public class Attribute : FullAuditedAggregateRoot
     {
-        public Attribute(string name, bool isRequired, int displayOrder, AttributeType type, AttributeDisplayType displayType, string description, bool isSearch)
+        public Attribute() { }
+        /// <summary>
+        /// 创建基础属性
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="isRequired">是否必填</param>
+        /// <param name="displayOrder">排序</param>
+        /// <param name="valueType">值的类型</param>
+        /// <param name="controlType">控件的类型</param>
+        /// <param name="description">描述</param>
+        /// <param name="isSearch">是否可搜索</param>
+        /// <param name="unitId">计量单位Id</param>
+        /// <param name="isActive">是否可用</param>
+        /// <param name="categoryId">分类Id</param>
+        /// <returns></returns>
+        public static Attribute CreateBasicAttribute(string name, bool isRequired, int displayOrder, AttributeValueType valueType, AttributeControlType controlType, string description, bool isSearch, int? unitId, bool isActive, int categoryId)
         {
-            SetName(name);
-            SetIsRequired(isRequired);
-            SetType(type);
-            SetDisplayOrder(displayOrder);
-            SetDisplayType(displayType);
-            SetDescription(description);
-            SetIsSearch(isSearch);
+            var attribute = new Attribute();
+            attribute.SetName(name);
+            attribute.SetIsRequired(isRequired);
+            attribute.SetValueType(valueType);
+            attribute.SetDisplayOrder(displayOrder);
+            attribute.SetControlType(controlType);
+            attribute.SetDescription(description);
+            attribute.SetIsSearch(isSearch);
+            attribute.SetUnitId(unitId);
+            attribute.SetIsActive(isActive);
+            attribute.SetCategoryId(categoryId);
+            attribute.SetAttributeType(AttributeType.Basic);
+            return attribute;
+        }
+        /// <summary>
+        /// 创建销售属性
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="displayOrder">排序</param>
+        /// <param name="description">描述</param>
+        /// <param name="isActive">是否可用</param>
+        /// <param name="categoryId">分类Id</param>
+        /// <returns></returns>
+        public static Attribute CreateSalesAttribute(string name, int displayOrder, string description, bool isActive, int categoryId)
+        {
+            var attribute = new Attribute();
+            attribute.SetName(name);
+            attribute.SetValueType(AttributeValueType.Option);
+            attribute.SetDisplayOrder(displayOrder);
+            attribute.SetDescription(description);
+            attribute.SetIsSearch(true);
+            attribute.SetIsActive(isActive);
+            attribute.SetCategoryId(categoryId);
+            attribute.SetAttributeType(AttributeType.Sales);
+            return attribute;
         }
 
         /// <summary>
-        /// 名称
+        /// 获取名称
         /// </summary>
         public string Name { get; private set; }
+        /// <summary>
+        /// 设置名称
+        /// </summary>
+        /// <param name="name"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public void SetName(string name)
         {
             if (name == null) throw new ArgumentNullException(nameof(name), "属性名称不能为空");
@@ -50,20 +98,24 @@
             DisplayOrder = displayOrder;
         }
         /// <summary>
-        /// 属性类型
+        /// 属性值类型
         /// </summary>
-        public AttributeType Type { get; private set; }
-        public void SetType(AttributeType type)
+        public AttributeValueType ValueType { get; private set; }
+        public void SetValueType(AttributeValueType valueType)
         {
-            Type = type;
+            ValueType = valueType;
         }
         /// <summary>
-        /// 展示方式
+        /// 获取控件类型
         /// </summary>
-        public AttributeDisplayType DisplayType { get; private set; }
-        public void SetDisplayType(AttributeDisplayType displayType)
+        public AttributeControlType ControlType { get; private set; }
+        /// <summary>
+        /// 设置控件类型
+        /// </summary>
+        /// <param name="controlType"></param>
+        public void SetControlType(AttributeControlType controlType)
         {
-            DisplayType = displayType;
+            ControlType = controlType;
         }
         /// <summary>
         /// 获取描述说明
@@ -80,7 +132,7 @@
         /// <summary>
         /// 获取是否参与搜索
         /// </summary>
-        public bool IsSearch { get; set; }
+        public bool IsSearch { get; private set; }
         /// <summary>
         /// 设置是否参与搜索
         /// </summary>
@@ -139,9 +191,10 @@
         /// </summary>
         /// <param name="unitId"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void SetUnit(int unitId)
+        public void SetUnitId(int? unitId)
         {
-            if (unitId <= 0) throw new ArgumentOutOfRangeException(nameof(unitId), "无效计量单位Id。");
+            if (unitId.HasValue && unitId <= 0)
+                throw new ArgumentOutOfRangeException(nameof(unitId), "无效计量单位Id。");
             UnitId = unitId;
         }
         /// <summary>
@@ -156,6 +209,30 @@
         public void SetIsActive(bool isActive)
         {
             IsActive = isActive;
+        }
+        /// <summary>
+        /// 获取分类Id
+        /// </summary>
+        public int CategoryId { get; private set; }
+        /// <summary>
+        /// 设置分类Id
+        /// </summary>
+        /// <param name="categoryId"></param>
+        internal void SetCategoryId(int categoryId)
+        {
+            CategoryId = categoryId;
+        }
+        /// <summary>
+        /// 获取属性类型
+        /// </summary>
+        public AttributeType AttributeType { get; private set; }
+        /// <summary>
+        /// 设置属性类型
+        /// </summary>
+        /// <param name="attributeType"></param>
+        internal void SetAttributeType(AttributeType attributeType)
+        {
+            AttributeType = attributeType;
         }
     }
 }

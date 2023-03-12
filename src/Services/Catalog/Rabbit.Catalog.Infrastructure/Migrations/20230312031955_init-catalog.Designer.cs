@@ -12,7 +12,7 @@ using Rabbit.Catalog.Infrastructure.EntityFrameworkCore;
 namespace Rabbit.Catalog.Infrastructure.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    [Migration("20230311094556_init-catalog")]
+    [Migration("20230312031955_init-catalog")]
     partial class initcatalog
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,17 +34,43 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AttributeType")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<short>("ControlType")
+                        .HasColumnType("smallint");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasComment("创建时间");
+
+                    b.Property<int>("CreatorUserId")
+                        .HasColumnType("integer")
+                        .HasComment("创建人的用户Id");
+
+                    b.Property<DateTime?>("DeletedTime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasComment("删除时间");
+
+                    b.Property<int?>("DeleterUserId")
+                        .HasColumnType("integer")
+                        .HasComment("删除人的用户Id");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("integer");
 
-                    b.Property<short>("DisplayType")
-                        .HasColumnType("smallint");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasComment("是否已被删除");
 
                     b.Property<bool>("IsRequired")
                         .HasColumnType("boolean");
@@ -52,15 +78,23 @@ namespace Rabbit.Catalog.Infrastructure.Migrations
                     b.Property<bool>("IsSearch")
                         .HasColumnType("boolean");
 
+                    b.Property<DateTime?>("LastModifiedTime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasComment("最后更新时间");
+
+                    b.Property<int?>("LastModifierUserId")
+                        .HasColumnType("integer")
+                        .HasComment("最后更新人的用户Id");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
 
-                    b.Property<int>("Type")
+                    b.Property<int?>("UnitId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("UnitId")
+                    b.Property<int>("ValueType")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

@@ -28,8 +28,8 @@
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpGet("GetAttributeGroups")]
-        public async Task<PagedResultDto<AttributeGroupListModel>> GetAttributeGroupsAsync(GetAttributeGroupsInput input)
+        [HttpGet("GetAll")]
+        public async Task<PagedResultDto<AttributeGroupListModel>> GetAllAsync(GetAttributeGroupsInput input)
         {
             return await _templateQuerier.GetAttributeGroupsAsync(input);
         }
