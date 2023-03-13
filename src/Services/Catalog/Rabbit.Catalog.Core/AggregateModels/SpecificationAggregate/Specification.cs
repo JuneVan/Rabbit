@@ -38,12 +38,28 @@
         /// 获取属性列表
         /// </summary>
         public IReadOnlyCollection<SpecificationAttribute> Attributes => _attributes.AsReadOnly();
-        private List<SpecificationAttribute> _attributes;
+        private List<SpecificationAttribute> _attributes = new();
+        public void AddAttribute(int attributeId, int? attributeOptionId, string attribtueValue)
+        {
+            _attributes.Add(new SpecificationAttribute(attributeId, attributeOptionId, attribtueValue));
+        }
+        public void UpdateAttribute(int specificationAttributeId, string attributeValue)
+        {
+            var attribute = _attributes.FirstOrDefault(x => x.Id == specificationAttributeId);
+            if (attribute != null)
+                attribute.SetAttributeValue(attributeValue);
+        }
+        public void RemoveAttribute(int specificationAttributeId)
+        {
+            var attribute = _attributes.FirstOrDefault(x => x.Id == specificationAttributeId);
+            if (attribute != null)
+                _attributes.Remove(attribute);
+        }
 
         /// <summary>
         /// 获取图片列表
         /// </summary>
         public IReadOnlyCollection<ProductPicture> Pictures => _pictures.AsReadOnly();
-        private List<ProductPicture> _pictures;
+        private List<ProductPicture> _pictures = new();
     }
 }

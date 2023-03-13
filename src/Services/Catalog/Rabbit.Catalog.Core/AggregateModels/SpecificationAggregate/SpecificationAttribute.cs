@@ -25,7 +25,7 @@
         /// 属性选项Id
         /// </summary>
         public int? AttributeOptionId { get; private set; }
-        public void SetAttributeOptionId(int? attributeOptionId)
+        internal void SetAttributeOptionId(int? attributeOptionId)
         {
             AttributeOptionId = attributeOptionId;
         }
