@@ -1,8 +1,9 @@
-﻿using Attribute = Rabbit.Catalog.AggregateModels.AttributeAggregate.Attribute;
+﻿using Rabbit.Data.EntityFrameworkCore;
+using Attribute = Rabbit.Catalog.AggregateModels.AttributeAggregate.Attribute;
 
 namespace Rabbit.Catalog.Infrastructure.EntityFrameworkCore
 {
-    public class CatalogDbContext : EfCoreDbContext<CatalogDbContext>
+    public class CatalogDbContext : EFCoreDbContext<CatalogDbContext>
     {
         public CatalogDbContext(DbContextOptions options, IServiceProvider serviceProvider)
             : base(options, serviceProvider)

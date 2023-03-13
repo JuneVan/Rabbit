@@ -3,7 +3,7 @@
     /// <summary>
     /// 品牌
     /// </summary>
-    public class Brand : Entity
+    public class Brand : FullAuditedAggregateRoot
     {
         public Brand(string name, string description, string logo)
         {

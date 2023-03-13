@@ -8,17 +8,17 @@
     public class AccountQuerier : IAccountQuerier
     {
         private readonly IMapper _mapper;
-        private readonly IRepository<User> _userRepository;
-        private readonly IRepository<UserRole> _userRoleRepository; 
-        private readonly IRepository<RolePermission> _rolePermissionRepository;
-        private readonly IRepository<Permission> _permissionRepository;
+        private readonly IQueryableRepository<User> _userRepository;
+        private readonly IQueryableRepository<UserRole> _userRoleRepository; 
+        private readonly IQueryableRepository<RolePermission> _rolePermissionRepository;
+        private readonly IQueryableRepository<Permission> _permissionRepository;
         private readonly IThreadSignal _signal;
         public AccountQuerier(
-            IRepository<User> userRepository,
             IMapper mapper,
-            IRepository<UserRole> userRoleRepository, 
-            IRepository<RolePermission> rolePermissionRepository,
-            IRepository<Permission> permissionRepository,
+            IQueryableRepository<User> userRepository,
+            IQueryableRepository<UserRole> userRoleRepository,
+            IQueryableRepository<RolePermission> rolePermissionRepository,
+            IQueryableRepository<Permission> permissionRepository,
             IThreadSignal signal)
         {
             _userRepository = userRepository;

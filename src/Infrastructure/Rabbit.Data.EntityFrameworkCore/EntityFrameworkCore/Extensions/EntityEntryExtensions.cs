@@ -1,4 +1,4 @@
-﻿namespace Rabbit.EntityFrameworkCore.Extensions
+﻿namespace Rabbit.Data.EntityFrameworkCore.Extensions
 {
     public static class EntityEntryExtensions
     {

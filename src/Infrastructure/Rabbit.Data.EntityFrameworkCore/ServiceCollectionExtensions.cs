@@ -3,7 +3,7 @@
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddEntityFrameworkCore<TDbContext>(this IServiceCollection services, Action<DbContextOptionsBuilder> configure)
-          where TDbContext : EfCoreDbContext<TDbContext>
+          where TDbContext : EFCoreDbContext<TDbContext>
         {
             // 查找所有的是实体类型
             var entityTypes = from property in typeof(TDbContext).GetProperties(BindingFlags.Public | BindingFlags.Instance)
@@ -16,9 +16,10 @@
             // 注册仓储服务类及接口
             foreach (var entityType in entityTypes)
             {
-                services.AddScoped(typeof(IRepository<>).MakeGenericType(entityType), typeof(EfCoreRepository<,>).MakeGenericType(typeof(TDbContext), entityType));
+                services.AddScoped(typeof(IQueryableRepository<>).MakeGenericType(entityType), typeof(QueryableEFCoreRepository<,>).MakeGenericType(typeof(TDbContext), entityType));
+                services.AddScoped(typeof(IRepository<>).MakeGenericType(entityType), typeof(EFCoreRepository<,>).MakeGenericType(typeof(TDbContext), entityType));
             }
-            services.AddScoped(typeof(IUnitOfWork), typeof(EfCoreUnitOfWork<>).MakeGenericType(typeof(TDbContext)));
+            services.AddScoped(typeof(IUnitOfWork), typeof(EFCoreUnitOfWork<>).MakeGenericType(typeof(TDbContext)));
 
             services.AddDbContext<TDbContext>(configure);
             return services;

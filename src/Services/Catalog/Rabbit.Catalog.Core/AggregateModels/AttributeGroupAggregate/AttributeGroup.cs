@@ -3,7 +3,7 @@
     /// <summary>
     /// 属性分组
     /// </summary>
-    public class AttributeGroup : Entity
+    public class AttributeGroup : FullAuditedAggregateRoot
     {
         public AttributeGroup(string name, int categoryId)
         {

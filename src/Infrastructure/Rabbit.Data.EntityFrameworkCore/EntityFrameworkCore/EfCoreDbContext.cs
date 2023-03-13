@@ -1,12 +1,12 @@
-﻿namespace Rabbit.EntityFrameworkCore
+﻿namespace Rabbit.Data.EntityFrameworkCore
 {
-    public abstract class EfCoreDbContext<TDbContext> : DbContext
+    public abstract class EFCoreDbContext<TDbContext> : DbContext
         where TDbContext : DbContext
     {
         private readonly LoggerFactory _loggerFactory = new(new[] {
             new DebugLoggerProvider()
         });
-        public EfCoreDbContext(DbContextOptions options, IServiceProvider serviceProvider) : base(options)
+        public EFCoreDbContext(DbContextOptions options, IServiceProvider serviceProvider) : base(options)
         {
             Identifier = serviceProvider.GetService<IIdentifier>();
             EventHelper = serviceProvider.GetService<IAggregateRootChangedEventHandler>();

@@ -1,6 +1,6 @@
 ﻿namespace Rabbit.Identity.Infrastructure.EntityFrameworkCore
 {
-    public class IdentityDbContext : EfCoreDbContext<IdentityDbContext>
+    public class IdentityDbContext : EFCoreDbContext<IdentityDbContext>
     {
         public IdentityDbContext(DbContextOptions options, IServiceProvider serviceProvider)
            : base(options, serviceProvider)

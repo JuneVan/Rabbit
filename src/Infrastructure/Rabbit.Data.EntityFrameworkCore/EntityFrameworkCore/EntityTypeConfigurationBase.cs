@@ -1,4 +1,4 @@
-﻿namespace Rabbit.EntityFrameworkCore
+﻿namespace Rabbit.Data.EntityFrameworkCore
 {
     public abstract class EntityTypeConfigurationBase<TEntity> : IEntityTypeConfiguration<TEntity>
         where TEntity : class, IEntity
