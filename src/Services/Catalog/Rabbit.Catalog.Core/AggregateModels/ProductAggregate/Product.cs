@@ -1,4 +1,6 @@
-﻿namespace Rabbit.Catalog.AggregateModels.ProductAggregate
+﻿using Rabbit.Catalog.AggregateModels.SpecificationAggregate;
+
+namespace Rabbit.Catalog.AggregateModels.ProductAggregate
 {
     /// <summary>
     /// 商品
@@ -19,6 +21,9 @@
             if (name == null) throw new ArgumentNullException(nameof(name), "商品名称不能为空。");
             Name = name;
         }
+        /// <summary>
+        /// 获取商品封面图片
+        /// </summary>
         public string Cover { get; private set; }
         public void SetCover(string cover)
         {
@@ -66,45 +71,7 @@
             if (unitId <= 0) throw new ArgumentOutOfRangeException(nameof(unitId), "单位Id无效。");
             UnitId = unitId;
         }
-        /// <summary>
-        /// 获取属性列表
-        /// </summary>
-        public IReadOnlyCollection<ProductAttribute> Attributes => _attributes.AsReadOnly();
-        private List<ProductAttribute> _attributes = new();
-        /// <summary>
-        /// 添加属性信息
-        /// </summary>
-        /// <param name="attributeId"></param>
-        /// <param name="attributeOptionId"></param>
-        /// <param name="attributeValue"></param>
-        public void AddAttribute(int attributeId, int? attributeOptionId, string attributeValue)
-        {
-            _attributes.Add(new ProductAttribute(attributeId, attributeOptionId, attributeValue));
-        }
-        /// <summary>
-        /// 更新属性信息
-        /// </summary>
-        /// <param name="productAttributeId"></param>
-        /// <param name="attributeOptionId"></param>
-        /// <param name="attributeValue"></param>
-        public void UpdateAttribute(int productAttributeId, int? attributeOptionId, string attributeValue)
-        {
-            var attribute = _attributes.FirstOrDefault(x => x.Id == productAttributeId);
-            if (attribute == null)
-                throw new ArgumentException("商品属性信息不存在。");
-            attribute.SetAttributeOptionId(attributeOptionId);
-            attribute.SetAttributeValue(attributeValue);
-        }
-        /// <summary>
-        /// 移除属性信息
-        /// </summary>
-        /// <param name="productAttributeId">商品属性id</param>
-        public void RemoveAttribute(int productAttributeId)
-        {
-            var attribute = _attributes.FirstOrDefault(x => x.Id == productAttributeId);
-            if (attribute != null)
-                _attributes.Remove(attribute);
-        }
+      
 
         /// <summary>
         /// 获取Meta关键词
@@ -175,5 +142,81 @@
         {
             Introduction = introduction;
         }
+
+        /// <summary>
+        /// 获取属性列表
+        /// </summary>
+        public IReadOnlyCollection<ProductAttribute> Attributes => _attributes.AsReadOnly();
+        private List<ProductAttribute> _attributes = new();
+        /// <summary>
+        /// 添加属性信息
+        /// </summary>
+        /// <param name="attributeId"></param>
+        /// <param name="attributeOptionId"></param>
+        /// <param name="attributeValue"></param>
+        public void AddAttribute(int attributeId, int? attributeOptionId, string attributeValue)
+        {
+            _attributes.Add(new ProductAttribute(attributeId, attributeOptionId, attributeValue));
+        }
+        /// <summary>
+        /// 更新属性信息
+        /// </summary>
+        /// <param name="productAttributeId"></param>
+        /// <param name="attributeOptionId"></param>
+        /// <param name="attributeValue"></param>
+        public void UpdateAttribute(int productAttributeId, int? attributeOptionId, string attributeValue)
+        {
+            var attribute = _attributes.FirstOrDefault(x => x.Id == productAttributeId);
+            if (attribute == null)
+                throw new ArgumentException("商品属性信息不存在。");
+            attribute.SetAttributeOptionId(attributeOptionId);
+            attribute.SetAttributeValue(attributeValue);
+        }
+        /// <summary>
+        /// 移除属性信息
+        /// </summary>
+        /// <param name="productAttributeId">商品属性id</param>
+        public void RemoveAttribute(int productAttributeId)
+        {
+            var attribute = _attributes.FirstOrDefault(x => x.Id == productAttributeId);
+            if (attribute != null)
+                _attributes.Remove(attribute);
+        }
+        /// <summary>
+        /// 获取图片列表
+        /// </summary>
+        public IReadOnlyCollection<ProductPicture> Pictures => _pictures.AsReadOnly();
+        private List<ProductPicture> _pictures = new();
+        /// <summary>
+        /// 添加图片
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="displayOrder"></param>
+        public void AddPicture(string url, int displayOrder)
+        {
+            _pictures.Add(new ProductPicture(url, displayOrder));
+        }
+        /// <summary>
+        /// 更新图片
+        /// </summary>
+        /// <param name="productPictureId"></param>
+        /// <param name="displayOrder"></param>
+        public void UpdatePicture(int productPictureId, int displayOrder)
+        {
+            var picture = _pictures.FirstOrDefault(x => x.Id == productPictureId);
+            if (picture != null)
+                picture.SetDisplayOrder(displayOrder);
+        }
+        /// <summary>
+        /// 移除图片
+        /// </summary>
+        /// <param name="productPictureId"></param>
+        public void RemovePicture(int productPictureId)
+        {
+            var picture = _pictures.FirstOrDefault(x => x.Id == productPictureId);
+            if (picture != null)
+                _pictures.Remove(picture);
+        }
+
     }
 }

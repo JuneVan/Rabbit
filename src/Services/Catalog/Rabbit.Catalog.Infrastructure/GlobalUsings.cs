@@ -12,3 +12,5 @@ global using Rabbit.Catalog.Infrastructure.EntityFrameworkCore;
 global using Rabbit.Data.EntityFrameworkCore;
 global using Rabbit.Events;
 global using Rabbit.Identity.Infrastructure;
+global using Rabbit.Catalog.AggregateModels.ProductAggregate;
+global using Rabbit.Catalog.AggregateModels.SpecificationAggregate;
